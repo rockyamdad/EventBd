@@ -1,0 +1,455 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    {% stylesheets filter='cssrewrite'
+    'assets/global/plugins/fullcalendar/fullcalendar.min.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    <!-- END PAGE LEVEL STYLES -->
+
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="{{ path('events_homepage') }}">Home</a></li>
+
+                <li class="active">Concert</li>
+            </ul>
+            <div class="row margin-bottom-40">
+                <div class="col-md-9 col-sm-7 single-event-shape">
+                    <div class="product-page-custom">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 image-shape-custom">
+                                <div class="product-main-image">
+                                    <img src="{{ asset('uploads/'~event.path) }}" alt="{{ event.name }}"
+                                         class="img-responsive photo"
+                                         data-BigImgsrc="{{ asset('uploads/'~event.path) }}">
+                                </div>
+                                {#<div style="clear:both;"></div>#}
+                                <div class="portlet box green-meadow calendar calender-box-custom">
+                                    <div class="portlet-title" style="background-color: gray">
+                                        {#   <div class="caption" >
+                                               <i class="fa fa-gift"></i> Calender
+                                           </div>#}
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="row">
+                                            <div class="col-md-9 col-sm-12">
+                                                <div id="calendar" class="has-toolbar">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="alert alert-success" style="display: none" id="event-add-msg">
+                                    <strong>The Event has been Successfully added.</strong>
+                                </div>
+                                <table id="defaultTable">
+                                    {% set flag ='' %}
+                                    {% for schedules in event.scheduleDetail %}
+                                        {% set currentDate = "now"|date("Y-m-d") %}
+                                        {% set date = schedules.scheduleDate|date("Y-m-d") %}
+                                        {% if (date >= currentDate) and (flag=='' or flag==date) %}
+                                            <div class="event-show">
+                                                <tr class="defalut-select-row">
+                                                    <td class="date-custom-size">
+                                                        <div class="schedule-date" rel="{{ schedules.id }}">
+                                                            {{ schedules.scheduleDate|date("j F Y") }}
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="schedule-time">
+                                                            {{ schedules.startTime|date("g:iA") }}&nbsp;
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control input-sm ticket-select ticket-dropdown-size" id="ticket_id">
+                                                            <option>Select Ticket</option>
+                                                            {% for ticket in  event.ticket %}
+                                                                <option value="{{ ticket.id }}"
+                                                                        rel="{{ ticket.price }}"> {{ ticket.name }}  {#---- {{ ticket.price ? ticket.price~'Tk' : 'Free' }}#}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <div class="col-md-7">
+                                                                <input type="text" name="price"
+                                                                       class="form-control price-ticket-buy"
+                                                                       placeholder="Price" readonly>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="product-quantity">
+                                                            <input type="text" value="1" readonly
+                                                                   class="form-control input-sm quantity">
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <div>
+                                                            {% if(is_granted('ROLE_USER')) %}
+                                                                <button class="btn btn-primary add-ticket-buy"
+                                                                        rel="{{ event.path }}"
+                                                                        data-ref="{{ event.name }}"
+                                                                        value="{{ event.id }}" type="submit">Add
+                                                                </button>
+                                                            {% else %}
+                                                                <a href="{{ path('fos_user_security_login') }}"
+                                                                   class=" btn btn-primary fancybox-image-view fancybox.ajax"
+                                                                   data-fancybox-type="ajax">Add</a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </div>
+                                            {% set flag= schedules.scheduleDate|date("Y-m-d") %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </table>
+                                {# <div class="product-other-images">
+                                     <a href="../../assets/frontend/pages/img/products/model3.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="../../assets/frontend/pages/img/products/model3.jpg"></a>
+                                     <a href="../../assets/frontend/pages/img/products/model4.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="../../assets/frontend/pages/img/products/model4.jpg"></a>
+                                     <a href="../../assets/frontend/pages/img/products/model5.jpg" class="fancybox-button" rel="photos-lib"><img alt="Berry Lace Dress" src="../../assets/frontend/pages/img/products/model5.jpg"></a>
+                                 </div>#}
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+
+                                <b style="font-size: 25px">{{ event.name }}</b>
+                                {% if app.user and app.user.id == event.user.id %}
+                                    <a href="{{ path('event_edit',{'id':event.id}) }}" class="btn btn-sm blue ">Edit</a>
+                                {% endif %}
+                                <div class="price-availability-block clearfix">
+                                    <div class="schedule">
+                                        {% for schedule in  event.scheduleMaster %}
+                                            <p>
+                                                From {{ schedule.startDate|date("l jS F Y") }} {{ schedule.startTime|date("g:iA") }} </p>
+                                            <p> To {{ schedule.endDate|date("l jS F Y") }}
+                                                , {{ schedule.endTime|date("g:iA") }} </p>
+                                            {% if(schedule.frequency == 'Daily') %}
+                                                <p>EveryDay</p>
+                                            {% elseif(schedule.frequency == 'Weekily') %}
+                                                <p>EveryWeek</p>
+                                            {% elseif(schedule.frequency == 'Monthly') %}
+                                                <p>EveryMonth</p>
+                                            {% endif %}
+                                            <hr>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="product-page-options">
+                                        <div class="description">
+                                            {{ (event.description ? '<p><b class="single-page-details-size">Description:&nbsp;&nbsp;</b>'~event.description~'</p>' : '')|raw }}
+                                        </div>
+                                        <div class="contact">
+                                            {{ (event.contact ? '  <p><b class="single-page-details-size">Contact:&nbsp;&nbsp;</b>'~event.contact~'</p>' : '')|raw }}
+                                        </div>
+                                    </div>
+                                    <div class="tags">
+                                        {{ (event.group.name ? '<p><b class="single-page-details-size">Type:&nbsp;&nbsp;</b>'~event.group.name~'</p>' : '')|raw }}
+                                        {{ (event.tags ? '<p><b class="single-page-details-size">Tags:&nbsp;&nbsp;</b>'~event.tags~'</p>' : '')|raw }}
+                                    </div>
+                                    <div class="product-page-options">
+                                        <div class="address">
+                                            {{ (event.location.venueName|default() ? '<p><b class="single-page-details-size">Venue:&nbsp;&nbsp;</b>'~event.location.venueName|raw~'</p>' : '')|raw }}
+                                            {{ (event.location.address|default() ? '<p><b class="single-page-details-size">Location:&nbsp;&nbsp;</b>'~event.location.address|raw~'</p>' : '')|raw }}
+                                            {{ (event.location.city|default() ? '<p><b class="single-page-details-size">City:&nbsp;&nbsp;</b>'~event.location.city|raw~'</p>' : '')|raw }}
+                                            {{ (event.location.state|default() ? '<p><b class="single-page-details-size">State:&nbsp;&nbsp;</b>'~event.location.state|raw~'</p>' : '')|raw }}
+                                            {{ (event.location.postalCode|default() ? '<p><b class="single-page-details-size">Postal Code:&nbsp;&nbsp;</b>'~event.location.postalCode|raw~'</p>' : '')|raw }}
+                                        </div>
+                                    </div>
+                                    <div class="link">
+                                        {{ (event.facebookPageLink|default() ? '<p><b class="single-page-details-size">Facebook Link:&nbsp;&nbsp;</b>'~event.facebookPageLink|raw~'</p>' : '')|raw }}
+                                        {{ (event.googlePlusPageLink|default() ? '<p><b class="single-page-details-size">Google Plus Link:&nbsp;&nbsp;</b>'~event.googlePlusPageLink|raw~'</p>' : '')|raw }}
+                                        {{ (event.linkedinLink|default() ? '<p><b class="single-page-details-size">Linkedin Link:&nbsp;&nbsp;</b>'~event.linkedinLink|raw~'</p>' : '')|raw }}
+                                    </div>
+                                    {# <div class="availability">
+                                         Availability: <strong>In Stock</strong>
+                                     </div>#}
+                                </div>
+
+                                {#                  <ul class="social-icons">
+                                                      <li><a class="facebook" data-original-title="facebook" href="www.facebook.com"></a></li>
+                                                      <li><a class="twitter" data-original-title="twitter" href="#"></a></li>
+                                                      <li><a class="googleplus" data-original-title="googleplus" href="#"></a></li>
+                                                      <li><a class="evernote" data-original-title="evernote" href="#"></a></li>
+                                                      <li><a class="tumblr" data-original-title="tumblr" href="#"></a></li>
+                                                  </ul>#}
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="product-page-content" style="padding: 3px 13px 0px;">
+                            <ul id="eventTab" class="nav nav-tabs">
+                                <li class="active"><a href="#description" data-toggle="tab">About</a></li>
+                                {% if event.hasSpeaker %}
+                                    <li><a href="#speaker" data-toggle="tab">Speakers</a></li>
+                                {% endif %}
+                                {% if event.hasSponsor %}
+                                    <li><a href="#sponsor" data-toggle="tab">Sponsors</a></li>
+                                {% endif %}
+                                {% if event.hasNews %}
+                                    <li><a href="#news" data-toggle="tab">News</a></li>
+                                {% endif %}
+                                <li><a href="#contact" data-toggle="tab">Contact</a></li>
+                            </ul>
+                            <div id="eventTab" class="tab-content">
+                                <div class="tab-pane fade in active" id="description">
+                                    <p>{{ event.description }} </p>
+                                </div>
+                                <div class="tab-pane fade" id="contact">
+                                    <div class="row margin-bottom-40">
+                                        <!-- BEGIN SIDEBAR -->
+                                        <div class="sidebar col-md-3 col-sm-3">
+
+                                            <h2>Our Contacts</h2>
+
+                                                {{ event.contact }}
+
+                                            <address>
+                                                <strong>Email</strong><br>
+                                                <a href="{{ event.user.email }}">{{ event.user.email }}</a><br>
+                                            </address>
+                                            <ul class="social-icons margin-bottom-10">
+                                                <li><a href="#" data-original-title="facebook" class="facebook"></a>
+                                                </li>
+                                                <li><a href="#" data-original-title="github" class="github"></a></li>
+                                                <li><a href="#" data-original-title="Goole Plus" class="googleplus"></a>
+                                                </li>
+                                                <li><a href="#" data-original-title="linkedin" class="linkedin"></a>
+                                                </li>
+                                                <li><a href="#" data-original-title="rss" class="rss"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="speaker">
+                                            {% if event.speaker %}
+                                                {% for value in event.speaker %}
+                                                    <div class="pull-left">
+                                                        <div class="pi-img-wrapper logos-pos-speaker-sponsor">
+                                                            <img src="{{ asset('uploads/speakerPhoto/'~value.path) }}"
+                                                                 style="height: 70px;width: 80px;"
+                                                                 class="img-responsive">
+
+                                                            <div>
+
+                                                                {#  <a href="{{ asset('uploads/'~value.path) }}"
+                                                                     class="btn btn-default fancybox-button">Zoom</a>#}
+                                                            </div>
+
+                                                        </div>
+                                                        <p >{{ value.firstName }}  {{ value.lastName }}</p>
+                                                    </div>
+
+                                                {% endfor %}
+                                            {% endif %}
+                                </div>
+                                <div class="tab-pane fade" id="sponsor">
+                                            {% if event.sponsor %}
+                                                {% for value in event.sponsor %}
+                                                         <div class="pull-left">
+                                                                <div class="pi-img-wrapper logos-pos-speaker-sponsor" >
+                                                                    <img src="{{ asset('uploads/'~value.path) }}"
+                                                                         style="height: 70px;width: 80px;"
+                                                                         class="img-responsive">
+
+                                                                    <div>
+
+                                                                      {#  <a href="{{ asset('uploads/'~value.path) }}"
+                                                                           class="btn btn-default fancybox-button">Zoom</a>#}
+                                                                    </div>
+
+                                                                </div>
+                                                                <p >{{ value.name }}</p>
+                                                          </div>
+
+
+                                                {% endfor %}
+                                            {% endif %}
+                                    </div>
+                                <div class="tab-pane fade" id="news">
+                                            {% if event.news %}
+                                                {% for value in event.news %}
+
+                                                    <div >
+                                                        <div >
+                                                            <strong><p>{{ value.title }}</p></strong>
+
+                                                            <div>
+
+                                                                {#  <a href="{{ asset('uploads/'~value.path) }}"
+                                                                     class="btn btn-default fancybox-button">Zoom</a>#}
+                                                            </div>
+
+                                                        </div>
+                                                        <p>{{ value.details }}</p>
+                                                    </div>
+
+                                                {% endfor %}
+                                            {% endif %}
+
+                                </div>
+                        </div>
+
+                        <div class="sticker sticker-sale"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row new-events-section margin-bottom-25">
+                <div class="col-md-16 famous-event-custom">
+                    <h2 class="new-event-heading">Most Popular Events</h2>
+
+                    <div class="image-size">
+                        {% if(famousEvents) %}
+                            {% for event in famousEvents %}
+
+                                <div class="product-item pull-left event-custom">
+                                    <div class="pi-img-wrapper events-pos">
+                                        <img src="{{ asset('uploads/'~event.path) }}" class="img-responsive"
+                                             alt="Berry Lace Dress">
+
+                                        <div>
+                                            <a href="{{ path('event_single_vendor',{'id':event.id }) }}"
+                                               class="btn btn-default">Details</a>
+                                            <a href="{{ path('event_by_id',{'id':event.id }) }}"
+                                               class="btn btn-default fancybox-image-view fancybox.ajax" id="event"
+                                               data-fancybox-type="ajax">View</a>
+                                        </div>
+                                    </div>
+                                    <h3>
+                                        <a href="{{ path('event_single_vendor',{'id':event.id }) }}">{{ event.name|truncate(15) }}</a>
+                                    </h3>
+
+                                    {% if app.user and app.user.id == event.user.id %}
+                                        <a href="{{ path('event_edit',{'id':event.id}) }}"
+                                           class="btn btn-sm blue editEventButton">Edit</a>
+                                    {% endif %}
+                                </div>
+
+                            {% endfor %}
+                        {% else %}
+                            <p1 style="color: #ff0000;">There is No Famous Events</p1>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascriptBlock %}
+
+    {{ parent() }}
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% javascripts
+    'assets/global/plugins/moment.min.js'
+    'assets/global/plugins/fullcalendar/fullcalendar.min.js'
+    'assets/admin/pages/scripts/calendar.js'
+    'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'
+    'assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js'
+    'assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
+    '@EventBundle/Resources/public/js/events.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock javascriptBlock %}
+
+
+
+{% block documentReady %}
+   {# <script>#}
+        {{ parent() }}
+        var id = {{ event.id }}
+
+                $('#calendar').fullCalendar({
+                    height: 300,
+                    buttonText: {
+                        today: 'TODAY'
+
+                    },
+                    header: {
+                        right: 'prev,next, today'
+                    },
+                    events: {{ scheduleDates|json_encode|raw }},
+                    eventRender: function (event, eventElement) {
+                        if (event.imageurl) {
+                            var pathname = document.location.origin;
+                            url = pathname + '/' + event.imageurl
+                            var eventTd = eventElement.parentNode;
+                            eventElement.css('background-image', 'url(' + url + ')');
+                            eventElement.addClass("customEventElement");
+                        }
+                    },
+
+                    dayClick: function (date, jsEvent, view) {
+
+                        var scheduleDate = date.format();
+
+                        if ($(this).hasClass('active')) {
+
+                            return false;
+                        }
+                        date1 = date.toDate();
+                        var count = 0;
+                        var startDate = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate(), 0, 0, 0);
+                        var endDate = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate(), 23, 59, 59);
+
+                        $('#calendar').fullCalendar('clientEvents', function (event) {
+                            if (event.start.toDate() >= startDate && event.start.toDate() <= endDate
+                                    || (event.end != null && event.end.toDate() >= startDate && event.end.toDate() <= endDate)) {
+                                count++;
+                            }
+                        });
+
+                        $.ajax({
+                            type: "POST",
+                            url: Routing.generate('event_schedule_ticket_search', {'id': id }),
+                            data: {'data': scheduleDate},
+                            success: function (evnt) {
+                                $.each(evnt, function (key, value) {
+
+                                    var $clone = $("#defaultTable tr:first").clone();
+
+                                    $clone.find('.schedule-date').html(value.date);
+                                    $clone.find('.schedule-date').attr('rel', value.id);
+                                    $clone.find('.schedule-time').html(value.startTime);
+                                    $clone.find('.price-ticket-buy').val("");
+                                    $clone.find('.quantity').val("1");
+                                    $clone.appendTo("#defaultTable")
+                                    Layout.initTouchspin();
+
+
+                                })
+
+                            }
+
+                        });
+                        if (count != 0) {
+                            $(this).css('background-color', 'yellow');
+
+                        }
+
+                        $(this).addClass('active').on('click');
+
+                    }
+
+                });
+
+
+        $(".open_ajax").fancybox({type: 'ajax'});
+        $(".fancybox-image-view").fancybox({
+            maxWidth: 850,
+            afterShow: function () {
+                Layout.initImageZoom();
+                Layout.initTouchspin();
+
+            }
+        });
+
+{% endblock %}

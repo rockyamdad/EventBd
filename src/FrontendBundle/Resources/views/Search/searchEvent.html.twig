@@ -1,0 +1,196 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    {% stylesheets filter='cssrewrite'
+    'assets/global/plugins/bootstrap-select/bootstrap-select.min.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    <!-- END PAGE LEVEL STYLES -->
+
+{% endblock %}
+{% block body %}
+    <div class="main">
+        <div class="container">
+
+            <!-- BEGIN SIDEBAR & CONTENT -->
+            <div class="row margin-bottom-40">
+                <div class="col-md-16">
+                    <!-- BEGIN SIDEBAR -->
+                    <div class="col-md-16">
+                        <div class="sidebar col-md-12 col-sm-5 position-search">
+                            <form action="{{ path('event_search') }}" method="post">
+
+                                <div class="form-group col-md-10">
+
+                                            <div class="col-md-3 ">
+                                                {{ form_widget(form.group,{'attr':{'class':'select2me form-control'}}) }}
+                                            </div>
+
+
+
+
+                                            <div class="col-md-3 ">
+                                                {{ form_widget(form.name,{'attr':{'class':'form-control cart-custom','placeholder':'Event'}}) }}
+                                            </div>
+
+
+
+
+                                            <div class="col-md-3 ">
+                                                {{ form_widget(form.location,{'attr':{'class':'form-control cart-custom','placeholder':'Location','id':'eventbundle_location_address'}}) }}
+                                            </div>
+
+
+
+                                            <div class="col-md-3 ">
+
+                                                    <div class="input-group input-large date-picker input-daterange range-position-custom"
+                                                         data-date-format="mm/dd/yyyy">
+                                                        {{ form_widget(form.start_date,{'attr':{'class':'form-control','readonly':'readonly'}}) }}
+
+                                                        <span class="input-group-addon">
+                                                to </span>
+                                                        {{ form_widget(form.end_date,{'attr':{'class':'form-control','readonly':'readonly'}}) }}
+
+                                                    </div>
+
+                                            </div>
+
+
+
+
+
+
+                                </div>
+                                <div style="float:right;">
+                                    <input type="submit" value="Search" class="btn blue " >
+
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-14">
+                    <div class="col-md-12">
+                        <div class="product-page-content" >
+                            <ul id="eventTab" class="nav nav-tabs">
+
+                                <li class="active"><a href="#General-div" data-toggle="tab">General</a></li>
+                                <li class=""><a href="#Map-div" data-toggle="tab" class="map-tab">Map</a></li>
+
+                            </ul>
+                            <div  class="tab-content" style="background-color: inherit">
+                                <div class="tab-pane fade in active" id="General-div">
+                                        <div class="col-md-12 col-sm-6 col-xs-12">
+                                            <div class="row product-list image-size">
+                                        <!-- PRODUCT ITEM START -->
+                                        {% if eventSearchResults %}
+                                            {% for eventSearchResult in eventSearchResults %}
+
+                                                <div class="col-md-3 col-sm-6 col-xs-12 ">
+                                                    <div class="product-item">
+                                                        <div class="pi-img-wrapper">
+                                                            <img src="{{ asset('uploads/'~eventSearchResult.path) }}" class="img-responsive photo" alt="Berry Lace Dress">
+                                                            <div>
+                                                                <a href="{{ asset('uploads/'~eventSearchResult.path) }}" class="btn btn-default fancybox-button">Zoom</a>
+                                                                <a href="{{ path('event_by_id',{'id':eventSearchResult.id }) }}" class="btn btn-default fancybox-image-view fancybox.ajax" id="event" data-fancybox-type="ajax">View</a>
+                                                            </div>
+                                                        </div>
+                                                        <h3><a href="{{ path('event_single_vendor',{'id':eventSearchResult.id }) }}">{{ eventSearchResult.name }}</a></h3>
+                                                        <div class="pi-price">Tk.</div>
+                                                        {% if app.user and app.user.id == eventSearchResult.user.id %}
+                                                            <a href="{{ path('event_edit',{'id':eventSearchResult.id}) }}" class="btn btn-sm blue editEventButton">Edit</a>
+                                                        {% else %}
+                                                            <a href="#" class="btn btn-default add2cart">Add to cart</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+
+                                        {% else %}
+                                            <div class="col-md-4 col-sm-6 col-xs-12 ">
+                                                <h4 style="color: darkred">Event Not Found</h4>
+                                            </div>
+                                        {% endif %}
+                                        <!-- PRODUCT ITEM END -->
+
+                                        <!-- PRODUCT ITEM END -->
+                                    </div>
+
+                                    <!-- END PRODUCT LIST -->
+                                </div>
+                                        </div>
+                                <div class="tab-pane fade" id="Map-div">
+                                    <div class="col-md-12 map-design" id="map-canvas-search" >
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- END SIDEBAR & CONTENT -->
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block javascriptBlock %}
+
+    {{ parent() }}
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% javascripts
+    'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'
+    'assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js'
+    'assets/global/plugins/select2/select2.min.js'
+    'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js'
+    'assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
+    'assets/admin/pages/scripts/components-pickers.js'
+    '@FrontendBundle/Resources/public/Searchlocation.js'
+    '@EventBundle/Resources/public/js/markerclusterer_compiled.js'
+
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    {% endjavascripts %}
+
+    <script type="text/javascript"
+            src={{ asset('assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <!-- END GLOBAL JS -->
+{% endblock javascriptBlock %}
+
+{% block documentReady %}
+    {{ parent() }}
+    google.maps.event.addDomListener(window, 'load', initialize)
+
+    $('#eventTab a[href="#Map-div"]').on('shown.bs.tab', function(){
+        initialize({{ eventLat|json_encode|raw }});
+    google.maps.event.trigger(map, 'resize');
+    });
+
+
+    $(".open_ajax").fancybox({type: 'ajax'});
+    $(".fancybox-image-view").fancybox({
+    maxWidth:850,
+    afterShow: function() {
+
+    Layout.initImageZoom();
+    Layout.initTouchspin();
+
+    }
+    });
+    ComponentsPickers.init();
+
+{% endblock %}
+
+

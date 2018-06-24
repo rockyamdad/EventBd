@@ -1,0 +1,13 @@
+event_news_create:
+    path:     /events-news-create
+    defaults: { _controller: EventBundle:News:create }
+    options:
+            expose: true
+
+event_news_delete:
+    path:     /events-news-delete/{id}
+    defaults: { _controller: EventBundle:News:delete }
+    options:
+            expose: true
+    requirements:
+            id: \d+

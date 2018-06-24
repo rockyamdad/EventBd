@@ -1,0 +1,52 @@
+event_dashboard:
+    path:     /home
+    defaults: { _controller: UserBundle:User:index }
+
+users_list:
+    path:     /list
+    defaults: { _controller: UserBundle:User:userList }
+
+post_results:
+    path:     /results
+    defaults: { _controller: UserBundle:User:indexResults }
+
+users_add:
+    path:     /add
+    defaults: { _controller: UserBundle:User:add }
+
+user_save:
+    path:     /save
+    defaults: { _controller: UserBundle:Registration:saveUser}
+    options:
+            expose: true
+
+users_deactive:
+    path:     /deactive
+    defaults: { _controller: UserBundle:User:deactiveList }
+
+user_profile:
+    path:     /profile
+    defaults: { _controller: UserBundle:User:profileEdit }
+
+users_edit:
+    path:     /edit/{id}
+    defaults: { _controller: UserBundle:User:edit }
+    options:
+            expose: true
+
+users_changeStatus:
+    path:     /statusChange/{current}/{id}
+    defaults: { _controller: UserBundle:User:changeStatus }
+    options:
+            expose: true
+
+email_duplicacy_check:
+    path:     /duplicacy
+    defaults: { _controller: UserBundle:User:duplicateEmailCheck }
+    methods:  [POST]
+    options:
+            expose: true
+
+user_password_change:
+    path: /profile/pass-change
+    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }

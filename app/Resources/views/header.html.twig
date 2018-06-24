@@ -1,0 +1,123 @@
+
+
+<!-- BEGIN HEADER -->
+<div class="header header-custom" >
+    <div class="container">
+
+
+        <a class="site-logo" href="{{ path('events_homepage') }}"><img src="../../assets/frontend/layout/img/logos/logo2.png" alt="Metronic Shop UI" class="logo-header"></a>
+
+        <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+        <!-- BEGIN NAVIGATION -->
+        <div class="header-navigation">
+            <ul class="nav-custom">
+                <li><a href="{{ path('events_homepage') }}">Home</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
+                        Category
+
+                    </a>
+
+                    <!-- BEGIN DROPDOWN MENU -->
+                    <ul class="dropdown-menu">
+                        {% render controller('EventBundle:EventGroup:allGroup') %}
+                    </ul>
+                    <!-- END DROPDOWN MENU -->
+                </li>
+                <li class="dropdown dropdown-megamenu">
+                    <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">
+                        Vendor's Event
+
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="header-navigation-content">
+                                <div class="row">
+
+                                    {% render controller('EventBundle:Event:allEvent') %}
+
+                               {#     <div class="col-md-12 nav-brands">
+                                        <ul>
+                                            <li><a href="shop-product-list.html"><img title="esprit" alt="esprit" src="../../assets/frontend/pages/img/brands/esprit.jpg"></a></li>
+                                            <li><a href="shop-product-list.html"><img title="gap" alt="gap" src="../../assets/frontend/pages/img/brands/gap.jpg"></a></li>
+                                            <li><a href="shop-product-list.html"><img title="next" alt="next" src="../../assets/frontend/pages/img/brands/next.jpg"></a></li>
+                                            <li><a href="shop-product-list.html"><img title="puma" alt="puma" src="../../assets/frontend/pages/img/brands/puma.jpg"></a></li>
+                                            <li><a href="shop-product-list.html"><img title="zara" alt="zara" src="../../assets/frontend/pages/img/brands/zara.jpg"></a></li>
+                                        </ul>
+                                    </div>#}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- BEGIN TOP SEARCH -->
+        {#        <li class="menu-search">
+                    <span class="sep"></span>
+                    <i class="fa fa-search search-btn"></i>
+                    <div class="search-box">
+                        <form action="#">
+                            <div class="input-group">
+                                <input type="text" placeholder="Search" class="form-control">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" type="submit">Search</button>
+                    </span>
+                            </div>
+                        </form>
+                    </div>
+                </li>#}
+            </ul>
+            <!-- BEGIN CART -->
+            <!--END CART -->
+            </div>
+            <div class="col-md-4" style="margin-top: 5px;">
+
+                <div class="top-cart-block-custom" >
+                    <div class="pre-header-block">
+                        <ul class="list-unstyled list-inline pre-header-custom" style="float: right">
+                            {% if app.user %}
+                                {% if "ROLE_ADMIN" in app.user.roles %}
+                                    <li><a href="{{ path('event_dashboard') }}">Admin Panel</a></li>
+                                {% endif %}
+                           {#     {% if "ROLE_VENDOR" in app.user.roles %}
+                                <li><a href="{{ path('vendor_profile') }}">My Account</a></li>
+
+                            {% endif %}#}
+                              {#  <li><a href="{{ path('events_by_user') }}">Home</a></li>#}
+                                <li><a href="{{ path('fos_user_profile_show') }}">My Account</a></li>
+                                <li><a href="{{ path('event_create') }}">Create Event</a></li>
+                               {#  <li><a href="{{ path('events_checkout') }}">Checkout</a></li>#}
+                                <li> <a href="{{ path('fos_user_security_logout') }}"> Log Out </a></li>
+                            {% else %}
+
+                                <li> <a href="{{ path('user_save') }}" class="fancybox-image-view fancybox.ajax signup" id="eventSignup" data-fancybox-type="ajax">SignUp</a></li>
+                                <li> <a href="{{ path('fos_user_security_login') }}" class="fancybox-image-view fancybox.ajax" id="eventLogin" data-fancybox-type="ajax">LogIn</a></li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                    <div class="top-cart-info top-cart-block">
+                        {% render controller('EventBundle:Event:cartTicketInfo') %}
+                 {#       <a href="javascript:void(0);" class="top-cart-info-count">{{ app.session.get('events')|length }} items</a>
+                        <a href="javascript:void(0);" class="top-cart-info-value">$1260</a>
+                        <i class="fa fa-shopping-cart"></i>#}
+
+                        <div class="top-cart-content-wrapper">
+                            <div class="top-cart-content cart-custom">
+                                {% render controller('EventBundle:Event:summaryCart') %}
+
+                                <div class="text-right">
+                                    <a href="{{ path('event_cart') }}" class="btn btn-default">View Cart</a>
+                                    <a href="{{ path('events_checkout') }}" class="btn btn-primary">Checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- END NAVIGATION -->
+
+    </div>
+</div>
+
+<!-- Header END -->

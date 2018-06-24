@@ -1,0 +1,321 @@
+
+
+<div class="portlet-body form singleSchedule">
+    {{ form_start(scheduleForm,{'attr':{'class':'form-horizontal','id':'event_schedule_add_form'}}) }}
+    {{ form_widget(scheduleForm.eventId,{'attr':{'class':'eventIdSchedule'}}) }}
+    <input type="hidden" id="singleSchedule" name="singleSchedule">
+
+    <div class="form-body">
+        {% set startDate = '' %}
+        {% if scheduleForm.vars.value.startDate %} {% set startDate = scheduleForm.vars.value.startDate|date('Y-m-d') %}
+        {% else %} {% set startDate = 'now'|date('Y-m-d') %} {% endif %}
+        <!-- BEGIN FORM-->
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label class="control-label col-md-5">Start Date</label>
+
+                    <div class="col-md-3">
+                        <div class="input-group input-medium date date-picker"
+                             data-date-format="yyyy-mm-dd"
+                             data-date-viewmode="years">
+                            {{ form_widget(scheduleForm.startDate,{'attr':{'class':'form-control','readonly':'readonly','value':startDate}}) }}
+
+                            <span class="input-group-btn">
+                                                                        <button class="btn default" type="button"><i
+                                                                                    class="fa fa-calendar"></i></button>
+                                                                        </span>
+                        </div>
+                    </div>
+                </div>
+             {#   <div class="form-group">
+                    <label class="control-label col-md-5">Disable Past Dates</label>
+                    <div class="col-md-3">
+                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                            {{ form_widget(scheduleForm.startDate,{'attr':{'class':'form-control','readonly':'readonly'}}) }}
+													<span class="input-group-btn">
+													<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+													</span>
+                        </div>
+                        <!-- /input-group -->
+                    </div>
+                </div>#}
+
+            </div>
+            <div class="col-md-5">
+                {% set startTime = '' %}
+                {% if scheduleForm.vars.value.startTime %} {% set startTime = scheduleForm.vars.value.startTime|date('g:iA') %}
+                {% else %} {% set startTime = 'now'|date('g:iA') %} {% endif %}
+                <div class="form-group">
+                    <label class="control-label col-md-5">Start Time</label>
+
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            {{ form_widget(scheduleForm.startTime,{'attr':{'class':'form-control timepicker timepicker-no-seconds','value':  startTime}}) }}
+
+                            <span class="input-group-btn">
+                                                                        <button class="btn default" type="button"><i
+                                                                                    class="fa fa-clock-o"></i></button>
+                                                                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                {% set endDate = '' %}
+                {% if scheduleForm.vars.value.endDate %} {% set endDate = scheduleForm.vars.value.endDate|date('Y-m-d') %}
+                {% else %} {% set endDate = 'now'|date('Y-m-d') %} {% endif %}
+
+
+                <div class="form-group">
+                    <label class="control-label col-md-5">End Date</label>
+
+                    <div class="col-md-3">
+                        <div class="input-group input-medium date date-picker"
+                             data-date-format="yyyy-mm-dd"
+                             data-date-viewmode="years">
+
+                            {{ form_widget(scheduleForm.endDate,{'attr':{'class':'form-control','readonly':'readonly','value':  endDate }} ) }}
+
+                            <span class="input-group-btn">
+                                                                    <button class="btn default" type="button"><i
+                                                                                class="fa fa-calendar"></i></button>
+                                                                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                {% set endTime = '' %}
+                {% if scheduleForm.vars.value.endTime %} {% set endTime = scheduleForm.vars.value.endTime|date('g:iA') %}
+                {% else %} {% set endTime = 'now'|date('g:iA') %} {% endif %}
+                <div class="form-group">
+                    <label class="control-label col-md-5">End Time</label>
+
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            {{ form_widget(scheduleForm.endTime,{'attr':{'class':'form-control timepicker timepicker-no-seconds','value':  endTime}}) }}
+
+                            <span class="input-group-btn">
+                                                                    <button class="btn default" type="button"><i
+                                                                                class="fa fa-clock-o"></i></button>
+                                                                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <a style="color: blue" class=" multiple"> Multiple Schedule</a>
+
+
+        <div class="form-actions">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-9">
+                    {#        &#123;&#35; <a href="javascript:;"
+                                class="btn default backButtonLocation">
+                                 <i class="m-icon-swapleft"></i>Back</a>&#35;&#125;#}
+                    <input type="button" class="btn btn blue backButtonLocation" value="Back">
+                    <a type="button" class="btn blue singleScheduleCreateBtn"><i
+                                class="m-icon-swapright m-icon-white"></i>
+                        Continue
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- END FORM-->
+    </div>
+    {{ form_end(scheduleForm) }}
+</div>
+
+<div class="portlet-body form multipleSchedule">
+    <table class="table table-striped table-bordered table-primary table-condensed" id="scheduleTable">
+        <thead>
+
+        </thead>
+        <tbody>
+        {% if(multipleSchedules is defined) %}
+            {% for key,value in multipleSchedules %}
+                <tr class="series-row-head" style="background-color:white">
+                    <th width="75" class="report__cell--selected series-cell-dates">
+                        <span class="text-body-large text-body--significant " id="dateCount">{{ value['day'] }} </span>
+                    </th>
+                    <th class="report__cell--selected">
+                        <p class="l-block-1 text-body--significant"> {{  value['frequency'] }} {{  value['startTime'] }}  - {{  value['endTime'] }} </p>
+                        <p class="text-body-small text-body--faint">Starting  {{  value['startDate'] }} through <span class="endDate">{{  value['endDate'] }} </span></p>
+                    </th>
+                    <th class="report__cell--selected">
+                        <div class="series-card-tools">
+                            <input type="button" value="Detail"  id="detailsMultipleSchedule"   class="btn btn-info  fa fa-edit detailsMultipleSchedule" rel={{ value['scheduleId'] }} >
+                            <input type="button" value="delete"   id="deleteMultipleSchedule"   class="btn btn-danger fa fa-trash-o deleteMultipleSchedule" rel={{ value['scheduleId'] }}>
+                        </div>
+                    </th>
+                </tr>
+             {% endfor %}
+        {% endif %}
+        </tbody>
+
+    </table>
+
+
+    <table class="table" id="scheduleDetailsTable">
+        <thead>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+
+
+    {{ form_start(scheduleMultiple,{'attr':{'class':'form-horizontal','id':'event_schedule_multiple_form'}}) }}
+    {{ form_widget(scheduleMultiple.eventId,{'attr':{'class':'eventIdSchedule'}}) }}
+    <input type="hidden" id="multipleScheduleId">
+
+    <div class="form-body multiple-schedule-section">
+        <div class="row">
+            <label class="control-label col-md-5">HOW OFTEN DOES THIS EVENT OCCUR?</label>
+
+            <div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label class="control-label col-md-5"></label>
+
+                        <div class="form-group">
+                            <div class="col-md-9">
+                                {{ form_widget(scheduleMultiple.frequency,{'attr':{'class':'form-control input-large select2me','id':'frequency'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row daysOfWeekSection">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5"></label>
+
+                            <div class="col-md-5">
+                                {{ form_widget(scheduleMultiple.daysOfWeek,{'attr':{'class':'daysOfWeekselect2','multiple':'multiple','id':'daysOfWeek','placeholder':'Select Weeks'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row daysOfMonthSection">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5"></label>
+
+                            <div class="col-md-5">
+                                {{ form_widget(scheduleMultiple.daysOfMonth,{'attr':{'class':'daysOfMonthselect2','multiple':'multiple','id':'daysOfMonth','placeholder':'Select Months'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5">From</label>
+
+                            <div class="col-md-7">
+                                <div class="input-group" style="width:241px;">
+                                    {{ form_widget(scheduleMultiple.startTime,{'attr':{'class':'form-control timepicker timepicker-no-seconds'}}) }}
+
+                                    <span class="input-group-btn">
+                                                                        <button class="btn default" type="button"><i
+                                                                                    class="fa fa-clock-o"></i></button>
+                                                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-5">To</label>
+
+                            <div class="col-md-7">
+                                <div class="input-group" style="width:241px;">
+                                    {{ form_widget(scheduleMultiple.endTime,{'attr':{'class':'form-control timepicker timepicker-no-seconds'}}) }}
+
+                                    <span class="input-group-btn">
+                                                                    <button class="btn default" type="button"><i
+                                                                                class="fa fa-clock-o"></i></button>
+                                                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5">Occurs From</label>
+
+                            <div class="col-md-5">
+                                <div class="input-group input-medium date date-picker"
+                                     data-date-format="yyyy-mm-dd"
+                                     data-date-viewmode="years">
+                                    {{ form_widget(scheduleMultiple.startDate,{'attr':{'class':'form-control','readonly':'readonly','value':'now'|date('Y-m-d')}} ) }}
+
+                                    <span class="input-group-btn">
+                                                                        <button class="btn default" type="button"><i
+                                                                                    class="fa fa-calendar"></i></button>
+                                                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="control-label col-md-5">Untill</label>
+
+                            <div class="col-md-3">
+                                <div class="input-group input-medium date date-picker"
+                                     data-date-format="yyyy-mm-dd"
+                                     data-date-viewmode="years">
+                                    {{ form_widget(scheduleMultiple.endDate,{'attr':{'class':'form-control','readonly':'readonly','value':'now'|date('Y-m-d')}}) }}
+
+                                    <span class="input-group-btn">
+                                                                    <button class="btn default" type="button"><i
+                                                                                class="fa fa-calendar"></i></button>
+                                                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <br><br>
+
+                <div>
+                    <a style="color: blue" class=" single "> Single Schedule</a>
+                    {{ form_widget(scheduleMultiple.add,{'attr':{'class':'btn btn-primary scheduleMultipleCreateBtn'}}) }}
+                </div>
+
+                <br>
+
+                <!-- END FORM-->
+            </div>
+            {{ form_end(scheduleMultiple) }}
+        </div>
+    </div>
+</div>
+<div class="form-actions stepNext">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-9 continue-button-position">
+            <input type="button" class="btn btn blue backButtonLocation" value="Back">
+            {# <a href="javascript:;"
+                class="btn default backButtonLocation">
+                 <i class="m-icon-swapleft"></i>Back</a>#}
+            <a type="button" class="btn blue scheduleFinish"><i
+                        class="m-icon-swapright m-icon-white"></i>
+                Continue
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+{% extends 'baseBackend.html.twig' %}
+{% form_theme form ':Form:eventbd_horizontal_layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    {% stylesheets filter='cssrewrite'
+    'assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <!-- END PAGE LEVEL STYLES -->
+
+{% endblock %}
+{% block body %}
+    <h3 class="page-title">
+        Vendors
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="{{ path('event_dashboard') }}">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="{{ path('vendor_add') }}">Add Vendor</a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="portlet box blue-hoki">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i>Add Vendor
+            </div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse">
+                </a>
+                <a href="javascript:;" class="reload">
+                </a>
+                <a href="javascript:;" class="remove">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            {{ form_start(form,{'attr':{'class':'form-horizontal'}}) }}
+            <div class="form-body">
+                {{ form_row(form.user.firstname) }}
+                {{ form_row(form.user.lastname) }}
+                {{ form_row(form.companyName) }}
+                {{ form_row(form.user.email) }}
+                {{ form_row(form.user.plainPassword.first) }}
+                {{ form_row(form.user.plainPassword.second) }}
+                {{ form_row(form.address) }}
+                {{ form_row(form.phone) }}
+                {{ form_row(form.file)}}
+                {{ form_row(form.description) }}
+            </div>
+            <div class="form-actions top">
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-9">
+                        {{ form_widget(form.user.save,{'attr':{'class':'btn green'}}) }}
+                        <a href="{{ path('event_dashboard') }}"> {{ form_widget(form.user.cancel,{'attr':{'class':'btn default'}}) }}</a>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascriptBlock %}
+
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% javascripts
+        'assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    {% endjavascripts %}
+
+    <!-- END GLOBAL JS -->
+{% endblock javascriptBlock %}

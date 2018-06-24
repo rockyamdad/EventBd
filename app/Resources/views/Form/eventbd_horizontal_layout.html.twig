@@ -1,0 +1,32 @@
+{% extends "bootstrap_3_horizontal_layout.html.twig" %}
+
+{% block form_group_class -%}
+    col-md-4
+{%- endblock form_group_class %}
+
+{% block form_label_class -%}
+    col-md-3
+{%- endblock form_label_class %}
+
+{% block file_widget %}
+    {% spaceless %}
+<div class="fileinput fileinput-new" data-provides="fileinput">
+    <div class="input-group input-large">
+        <div class="form-control uneditable-input span3" data-trigger="fileinput">
+            <i class="fa fa-file fileinput-exists"></i>&nbsp; <span class="fileinput-filename">
+															</span>
+        </div>
+														<span class="input-group-addon btn default btn-file">
+														<span class="fileinput-new">
+														Select file </span>
+														<span class="fileinput-exists">
+														Change </span>
+                                                            {% set attr = {'class':'default'} %}
+                                                            <input type="file" {{ block('widget_attributes') }} />
+														</span>
+        <a href="#" class="input-group-addon btn red fileinput-exists" data-dismiss="fileinput">
+            Remove </a>
+    </div>
+</div>
+    {% endspaceless %}
+{% endblock file_widget %}

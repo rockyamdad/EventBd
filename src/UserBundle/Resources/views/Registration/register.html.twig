@@ -1,0 +1,15 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% block body %}
+{% include "UserBundle:Registration:register_content.html.twig" %}
+{% endblock body %}
+{% block javascriptBlock %}
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% javascripts
+    '@UserBundle/Resources/public/js/users.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    {% endjavascripts %}
+
+{% endblock javascriptBlock %}

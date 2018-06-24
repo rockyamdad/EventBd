@@ -1,0 +1,120 @@
+
+<div class="main">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="{{ path('events_homepage') }}">Home</a></li>
+                <li class="active"><a href="{{ path('fos_user_profile_show') }}">My Account Page</a> </li>
+            </ul>
+
+            <div class="row margin-bottom-40">
+
+                <div class="sidebar col-md-3 col-sm-3">
+                    <ul class="list-group margin-bottom-25 sidebar-menu">
+                        <li class="list-group-item clearfix"><a href="{{ path('user_profile') }}"><i class="fa fa-angle-right"></i> Edit Account Information</a></li>
+                        <li class="list-group-item clearfix"><a href="{{ path('events_by_user') }}"><i class="fa fa-angle-right"></i>My Events</a></li>
+                        <li class="list-group-item clearfix"><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-angle-right"></i> My account</a></li>
+                        <li class="list-group-item clearfix"><a href="{{ path('user_password_change') }}"><i class="fa fa-angle-right"></i> Change Password</a></li>
+                    </ul>
+                </div>
+
+                <!-- BEGIN CONTENT -->
+                <div class="col-md-9 col-sm-7">
+                    <div  ><h1 style="float: left;">My Account Page</h1> &nbsp;&nbsp;&nbsp;<a href="{{ path('user_profile') }}" class="btn btn-sm blue"> Edit Profile</a></div><br>
+                    {% for flashMessage in app.session.flashbag.get('message') %}
+                        <div class="alert alert-success">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="false"></button>
+                            <strong> {{ flashMessage }}</strong>
+                        </div>
+                    {% endfor %}
+                    <div class="content-page">
+                        <h3>My Profile</h3>
+                        <div class="form-group">
+                            <label class="control-label">First Name: </label>
+                            <strong>{{ user.firstname }}</strong>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Last Name :</label>
+                            <strong> {{ user.lastname }}</strong>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email :</label>
+                            <strong> {{ user.email }}</strong>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Gender :</label>
+                            <strong> {{ user.gender }}</strong>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Phone :</label>
+                            <strong> {{ user.cellphone }}</strong>
+                        </div>
+                        <hr>
+
+                        <h3>My Orders</h3>
+                        <ul>
+                            <li><a href="#">View your order history</a></li>
+                            <li><a href="#">Your Transactions</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <!-- END SIDEBAR & CONTENT -->
+        </div>
+    </div>
+
+{#    <!-- BEGIN BRANDS -->
+    <div class="brands">
+        <div class="container">
+            <div class="owl-carousel owl-carousel6-brands">
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/canon.jpg" alt="canon" title="canon"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/esprit.jpg" alt="esprit" title="esprit"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/gap.jpg" alt="gap" title="gap"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/next.jpg" alt="next" title="next"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/puma.jpg" alt="puma" title="puma"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/zara.jpg" alt="zara" title="zara"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/canon.jpg" alt="canon" title="canon"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/esprit.jpg" alt="esprit" title="esprit"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/gap.jpg" alt="gap" title="gap"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/next.jpg" alt="next" title="next"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/puma.jpg" alt="puma" title="puma"></a>
+                <a href="shop-product-list.html"><img src="../../assets/frontend/pages/img/brands/zara.jpg" alt="zara" title="zara"></a>
+            </div>
+        </div>
+    </div>
+    <!-- END BRANDS -->
+
+    <!-- BEGIN STEPS -->
+    <div class="steps-block steps-block-red">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 steps-block-col">
+                    <i class="fa fa-truck"></i>
+                    <div>
+                        <h2>Free shipping</h2>
+                        <em>Express delivery withing 3 days</em>
+                    </div>
+                    <span>&nbsp;</span>
+                </div>
+                <div class="col-md-4 steps-block-col">
+                    <i class="fa fa-gift"></i>
+                    <div>
+                        <h2>Daily Gifts</h2>
+                        <em>3 Gifts daily for lucky customers</em>
+                    </div>
+                    <span>&nbsp;</span>
+                </div>
+                <div class="col-md-4 steps-block-col">
+                    <i class="fa fa-phone"></i>
+                    <div>
+                        <h2>477 505 8877</h2>
+                        <em>24/7 customer care available</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>#}
+    <!-- END STEPS -->
+
+
+

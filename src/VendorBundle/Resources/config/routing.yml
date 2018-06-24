@@ -1,0 +1,31 @@
+vendor_list:
+    path:     /list
+    defaults: { _controller: VendorBundle:VendorProfile:index }
+
+vendor_add:
+    path:     /add
+    defaults: { _controller: VendorBundle:VendorProfile:addVendor }
+
+vendor_profile:
+    path:     /profile
+    defaults: { _controller: VendorBundle:VendorProfile:profile }
+
+vendor_profile_edit:
+    path:     /profilesEdit
+    defaults: { _controller: VendorBundle:VendorProfile:profileEdit }
+
+vendor_edit:
+    path:     /profilesEdit/{id}
+    defaults: { _controller: VendorBundle:VendorProfile:edit }
+    options:
+            expose: true
+
+vendor_post_results:
+    path:     /results
+    defaults: { _controller: VendorBundle:VendorProfile:indexResults }
+
+users_changeStatus:
+    path:     /statusChange/{current}/{id}
+    defaults: { _controller: UserBundle:User:changeStatus }
+    options:
+            expose: true

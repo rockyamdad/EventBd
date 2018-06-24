@@ -1,0 +1,52 @@
+{% block body %}
+    <div class="product-page-custom event">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-3">
+                <div class="product-main-image ">
+                    <img src="{{ asset('uploads/'~event.path) }}" alt="{{ event.name }}" class="img-responsive photo">
+                </div>
+                {# <div class="product-other-images">
+                     <a href="#" class="active"><img alt="Berry Lace Dress" src="../../assets/frontend/pages/img/products/model3.jpg"></a>
+                     <a href="#"><img alt="Berry Lace Dress" src="../../assets/frontend/pages/img/products/model4.jpg"></a>
+                     <a href="#"><img alt="Berry Lace Dress" src="../../assets/frontend/pages/img/products/model5.jpg"></a>
+                 </div>#}
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-9">
+                <h3>{{ event.name }}</h3>
+
+                <div class="price-availability-block clearfix">
+                    <div class="price">
+                        <div class="product-page-options">
+                            <div class="pull-left">
+                                <label class="control-label">Tickets:</label>
+                                <select class="form-control input-sm">
+                                    {% for ticket in  event.ticket %}
+                                        <option> {{ ticket.name }}
+                                            ---- {{ ticket.price ? ticket.price~'Tk' : 'Free' }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="address">
+                            <p>Location: {{ event.location.address }}.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="description">
+                    <p>{{ event.description }}.</p>
+                </div>
+                <div class="product-page-cart">
+
+                    {% if app.user and app.user.id == event.user.id %}
+                        <a href="{{ path('event_edit',{'id':event.id}) }}" class="btn btn-sm blue ">Edit</a>
+                    {% endif %}
+                    <a href="{{ path('event_single_vendor',{'id':event.id }) }}" class="btn btn-default color-custom">More
+                        details</a>
+                </div>
+            </div>
+            <div class="sticker sticker-sale"></div>
+        </div>
+    </div>
+
+{% endblock %}

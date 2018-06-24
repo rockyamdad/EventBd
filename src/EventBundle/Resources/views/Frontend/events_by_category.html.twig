@@ -1,0 +1,101 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <div class="main">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="{{ path('events_homepage') }}">Home</a></li>
+                <li class="active">category</li>
+            </ul>
+            <div class="row margin-bottom-40">
+                <div class="sidebar col-md-3 col-sm-5">
+
+                    <ul class="list-group margin-bottom-25 sidebar-menu">
+                        {% for category in allCategories %}
+                            <li class="list-group-item clearfix"><a
+                                        href="{{ path('events_by_category',{'id':category.id}) }}"><i
+                                            class="fa fa-angle-right"></i> {{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="col-md-9 col-sm-7">
+                    <div class="row product-list image-size">
+                        {% for eventCategory in eventsByCategory %}
+                            <div class="col-md-4 col-sm-6 col-xs-12 ">
+                                <div class="product-item">
+                                    <div class="pi-img-wrapper">
+                                        <img src="{{ asset('uploads/'~eventCategory.path) }}"
+                                             class="img-responsive photo" alt="Berry Lace Dress">
+
+                                        <div>
+                                            <a href="{{ asset('uploads/'~eventCategory.path) }}"
+                                               class="btn btn-default fancybox-button">Zoom</a>
+                                            <a href="{{ path('event_by_id',{'id':eventCategory.id }) }}"
+                                               class="btn btn-default fancybox-image-view fancybox.ajax" id="event"
+                                               data-fancybox-type="ajax">View</a>
+                                        </div>
+                                    </div>
+                                    <h3>
+                                        <a href="{{ path('event_single_vendor',{'id':eventCategory.id }) }}">{{ eventCategory.name }}</a>
+                                    </h3>
+
+                                    {% if eventCategory.id in price|keys %}
+                                        {% if(price[eventCategory.id] == '') %}
+                                            <div class="pi-price">Free</div>
+                                        {% else %}
+                                            <div class="pi-price">Tk.{{ price[eventCategory.id] }}</div>
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                    {% if app.user and app.user.id == eventCategory.user.id %}
+                                        <a href="{{ path('event_edit',{'id':eventCategory.id}) }}"
+                                           class="btn btn-sm blue editEventButton">Edit</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- END PRODUCT LIST -->
+                    <!-- BEGIN PAGINATOR -->
+                    {#       <div class="row">
+                               <div class="col-md-4 col-sm-4 items-info">Items 1 to 9 of 10 total</div>
+                               <div class="col-md-8 col-sm-8">
+                                   <ul class="pagination pull-right">
+                                       <li><a href="#">&laquo;</a></li>
+                                       <li><a href="#">1</a></li>
+                                       <li><span>2</span></li>
+                                       <li><a href="#">3</a></li>
+                                       <li><a href="#">4</a></li>
+                                       <li><a href="#">5</a></li>
+                                       <li><a href="#">&raquo;</a></li>
+                                   </ul>
+                               </div>
+                           </div>#}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block documentReady %}
+    {{ parent() }}
+
+    $(".open_ajax").fancybox({type: 'ajax'});
+    $(".fancybox-image-view").fancybox({
+    maxWidth:850,
+    afterShow: function() {
+
+    Layout.initImageZoom();
+    Layout.initTouchspin();
+
+    }
+    });
+
+{% endblock %}
+
+

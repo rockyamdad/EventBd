@@ -1,0 +1,5 @@
+{% for group in groups %}
+    <li><a href="{{ path('events_by_category',{'id':group.id}) }}">
+        {{ group.name }}
+    </a></li>
+{% endfor %}

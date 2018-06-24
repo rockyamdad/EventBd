@@ -1,0 +1,124 @@
+event_create:
+    path:     /events-create
+    defaults: { _controller: EventBundle:Event:create }
+    options:
+            expose: true
+
+event_list:
+    path:     /event-list
+    defaults: { _controller: EventBundle:Event:index }
+
+event_post_results:
+    path:     /results
+    defaults: { _controller: EventBundle:Event:indexResults }
+
+event_edit:
+    path:     /edit/{id}
+    defaults: { _controller: EventBundle:Event:edit }
+    options:
+            expose: true
+
+events_by_category:
+    path:     /category-show/{id}
+    defaults: { _controller: EventBundle:Event:eventsByCategory }
+    options:
+            expose: true
+
+events_by_user:
+    path:     /events-show
+    defaults: { _controller: EventBundle:Event:eventsByUser }
+    options:
+            expose: true
+
+event_by_id:
+    path:     /show/{id}
+    defaults: { _controller: EventBundle:Event:eventById }
+    options:
+            expose: true
+
+event_single_vendor:
+    path:     /vendor-event-show/{id}
+    defaults: { _controller: EventBundle:Event:vendorSingleEvent }
+    options:
+            expose: true
+
+event_delete:
+    path:     /delete/{id}
+    defaults: { _controller: EventBundle:Event:delete }
+    options:
+            expose: true
+
+events_changeStatus:
+    path:     /statusChange/{current}/{id}
+    defaults: { _controller: EventBundle:Event:changeStatus }
+    options:
+            expose: true
+
+event_views_calculate:
+    path:     /views/{id}
+    defaults: { _controller: EventBundle:Event:viewsCalculate }
+    options:
+            expose: true
+
+event_schedule_ticket_search:
+    path:     /event-tickets-schedule/{id}
+    defaults: { _controller: EventBundle:Event:scheduleTicketSearch }
+    options:
+            expose: true
+
+event_shopping_cart:
+    path:     /event-add-shopping-cart
+    defaults: { _controller: EventBundle:Event:addEventToShoppingCart }
+    options:
+            expose: true
+
+shopping_cart_event_delete:
+    path:     /shopping-cart-event-delete
+    defaults: { _controller: EventBundle:Event:deleteShoppingCartEvent }
+    options:
+            expose: true
+
+event_cart:
+    path:     /event-cart
+    defaults: { _controller: EventBundle:Event:showCart }
+
+event_checkout:
+    path:     /event-checkout
+    defaults: { _controller: EventBundle:Event:checkout }
+
+event_confirm_order:
+    path:     /event-order-confirm
+    defaults: { _controller: EventBundle:Event:confirmOrder }
+
+
+events_documents:
+    resource: "@EventBundle/Resources/config/routes/document.yml"
+    prefix: /
+
+events_speakers:
+    resource: "@EventBundle/Resources/config/routes/speakers.yml"
+    prefix: /
+
+events_sponsors:
+    resource: "@EventBundle/Resources/config/routes/sponsors.yml"
+    prefix: /
+
+events_news:
+    resource: "@EventBundle/Resources/config/routes/news.yml"
+    prefix: /
+
+events_location:
+    resource: "@EventBundle/Resources/config/routes/location.yml"
+    prefix: /
+
+events_schedule:
+    resource: "@EventBundle/Resources/config/routes/schedule.yml"
+    prefix: /
+
+events_tickets:
+    resource: "@EventBundle/Resources/config/routes/tickets.yml"
+    prefix: /
+
+events_group:
+    resource: "@EventBundle/Resources/config/routes/group.yml"
+    prefix: /

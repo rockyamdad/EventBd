@@ -1,0 +1,9 @@
+<div class="col-md-4 header-navigation-col">
+
+    {% for event in events %}
+    <ul>
+         <li ><a href="{{ path('event_single_vendor',{'id':event.id }) }}"><span style="font-size: 20px;margin-right: 7px;">›</span>{{ event.name }}</a></li>
+    </ul>
+    {% endfor %}
+
+</div>

@@ -1,0 +1,257 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    {% stylesheets filter='cssrewrite'
+
+    'assets/global/plugins/bootstrap-datepicker/css/datepicker3.css'
+    'assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css'
+    'assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css'
+    'assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'
+    'assets/admin/layout2/css/layout.css'
+    'assets/admin/layout2/css/custom.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    <!-- END PAGE LEVEL STYLES -->
+
+{% endblock %}
+{% block body %}
+
+
+    <!-- BEGIN SLIDER -->
+    <div class="page-slider margin-bottom-00">
+        <!-- LayerSlider start -->
+        <div id="layerslider" style="width: 100%; height: 494px; margin: 0 auto;">
+           {% for sliderPhoto in sliderPhotos %}
+            <!-- slide one start -->
+            <div class="ls-slide ls-slide1" data-ls="">
+                <img src="{{ url('events_homepage') }}uploads/sliderPhoto/{{ sliderPhoto.path }}" class="ls-bg" alt="Slide background">
+
+                <div class="ls-l ls-title event-title" style="top: 96px; left: 25%; white-space: nowrap;">
+                    <strong>{{sliderPhoto.title}}</strong>
+                </div>
+                <div class="ls-l ls-mini-text description" style="top: 300px; left: 25%; white-space: nowrap;"
+                     data-ls="">
+                    {{ sliderPhoto.description }}
+                </div>
+            </div>
+               <!-- slide end -->
+           {% endfor %}
+        </div>
+
+    </div>
+
+
+    <div class="main">
+    <div class="container">
+
+    <div class="row new-events-section margin-bottom-25" >
+        <div class="col-md-14">
+            <div class="col-md-8" style="float: right">
+                <h2 class="new-event-heading" >New Events</h2>
+                <div class="image-size new-event-custom">
+                    {% if(newEvents) %}
+                        {% for event in newEvents %}
+
+                                <div class="product-item pull-left event-custom">
+                                    <div class="pi-img-wrapper events-pos">
+                                        <img src="{{ asset('uploads/'~event.path) }}" class="img-responsive" alt="Berry Lace Dress">
+                                        <div>
+                                            <a href="{{ path('event_single_vendor',{'id':event.id }) }}" class="btn btn-default">Details</a>
+                                            <a href="{{ path('event_by_id',{'id':event.id }) }}" class="btn btn-default fancybox-image-view fancybox.ajax" id="event" data-fancybox-type="ajax">View</a>
+                                        </div>
+                                    </div>
+                                    <h3><a href="{{ path('event_single_vendor',{'id':event.id }) }}">{{ event.name|truncate(15) }}</a></h3>
+                                    {% if event.id in price|keys %}
+                                        {% if(price[event.id] == '') %}
+                                            <div class="pi-price">Free</div>
+                                        {% else %}
+                                            <div class="pi-price">Tk.{{ price[event.id] }}</div>
+                                        {% endif %}
+                                    {% else %}
+                                        <div class="pi-price">Tk </div>
+                                    {% endif %}
+                                    {% if app.user and app.user.id == event.user.id %}
+                                        <a href="{{ path('event_edit',{'id':event.id}) }}" class="btn btn-sm blue editEventButton">Edit</a>
+                                    {% endif %}
+                                </div>
+
+                        {% endfor %}
+                    {% else %}
+                        <p1 style="color: #ff0000;">There is No New Events</p1>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-3" style="float: left">
+                <h2 class="new-event-heading" >Search</h2>
+                <div class="image-size event-custom" style="min-height:392px;width: 287px;">
+                <form action="{{ path('event_search') }}" method="post" id="searchForm">
+                   <div class="form-group searchInput">
+                           {{ form_widget(form.name,{'attr':{'class':'form-control cart-custom','placeholder':'Event'}}) }}
+                   </div>
+                   <div class="form-group searchInput">
+                           {{ form_widget(form.location,{'attr':{'class':'form-control cart-custom','placeholder':'Location','id':'eventbundle_location_address'}}) }}
+                   </div>
+                    <div class="form-group searchInput">
+                        <div class="col-md-4">
+                            <div class="input-group input-large date-picker input-daterange range-position-custom"  data-date-format="mm/dd/yyyy">
+                                {{ form_widget(form.start_date,{'attr':{'class':'form-control','readonly':'readonly'}}) }}
+
+                                <span class="input-group-addon">
+                                                to </span>
+                                {{ form_widget(form.end_date,{'attr':{'class':'form-control','readonly':'readonly'}}) }}
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="form-group" style="padding-top:82px;">
+                        <input type="submit" value="Search" class="btn blue searchBtn" style="margin-left: 105px;">
+                    </div>
+               </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row new-events-section margin-bottom-25" >
+
+        <div class="col-md-6" style="float: left">
+
+            <h2 class="new-event-heading" >Upcoming Events</h2>
+            <div class="image-size">
+                {% if(upComingEvents) %}
+                    {% for event in upComingEvents %}
+
+                        <div class="product-item pull-left event-custom">
+                            <div class="pi-img-wrapper events-pos">
+                                <img src="{{ asset('uploads/'~event.path) }}" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="{{ path('event_single_vendor',{'id':event.id }) }}" class="btn btn-default">Details</a>
+                                    <a href="{{ path('event_by_id',{'id':event.id }) }}" class="btn btn-default fancybox-image-view fancybox.ajax" id="event" data-fancybox-type="ajax">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="{{ path('event_single_vendor',{'id':event.id }) }}">{{ event.name|truncate(15) }}</a></h3>
+                            {% if event.id in price|keys %}
+                                {% if(price[event.id] == '') %}
+                                    <div class="pi-price">Free</div>
+                                {% else %}
+                                    <div class="pi-price">Tk.{{ price[event.id] }}</div>
+                                {% endif %}
+                            {% else %}
+                                <div class="pi-price">Tk </div>
+
+                            {% endif %}
+                            {% if app.user and app.user.id == event.user.id %}
+                                <a href="{{ path('event_edit',{'id':event.id}) }}" class="btn btn-sm blue editEventButton">Edit</a>
+                            {% endif %}
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <p1 style="color: #ff0000;">There is No UpComing Events</p1>
+                {% endif %}
+
+
+            </div>
+        </div>
+        <div class="col-md-6" style="float: right">
+
+            <h2 class="new-event-heading" >Popular Events</h2>
+            <div class="image-size">
+               {% if(poplarEvents) %}
+                    {% for event in poplarEvents %}
+
+                        <div class="product-item pull-left event-custom">
+                            <div class="pi-img-wrapper events-pos">
+                                <img src="{{ asset('uploads/'~event.path) }}" class="img-responsive" alt="Berry Lace Dress">
+                                <div>
+                                    <a href="{{ path('event_single_vendor',{'id':event.id }) }}" class="btn btn-default">Details</a>
+                                    <a href="{{ path('event_by_id',{'id':event.id }) }}" class="btn btn-default fancybox-image-view fancybox.ajax" id="event" data-fancybox-type="ajax">View</a>
+                                </div>
+                            </div>
+                            <h3><a href="{{ path('event_single_vendor',{'id':event.id }) }}">{{ event.name|truncate(15) }}</a></h3>
+                            {% if event.id in price|keys %}
+                                {% if(price[event.id] == '') %}
+                                    <div class="pi-price">Free</div>
+                                {% else %}
+                                    <div class="pi-price">Tk.{{ price[event.id] }}</div>
+                                {% endif %}
+                            {% else %}
+                                <div class="pi-price">Tk </div>
+
+                            {% endif %}
+                            {% if app.user and app.user.id == event.user.id %}
+                                <a href="{{ path('event_edit',{'id':event.id}) }}" class="btn btn-sm blue editEventButton">Edit</a>
+                            {% endif %}
+                        </div>
+
+                    {% endfor %}
+                {% else %}
+                    <p1 style="color: #ff0000;">There is No Popular Events</p1>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+    </div>
+
+
+{% endblock %}
+{% block javascriptBlock %}
+
+    {{ parent() }}
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% javascripts
+
+    'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'
+    'assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js'
+    'assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js'
+    'assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
+    'assets/admin/pages/scripts/components-pickers.js'
+    '@FrontendBundle/Resources/public/Searchlocation.js'
+    '@EventBundle/Resources/public/js/eventViewsCount.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    {% endjavascripts %}
+
+    <script type="text/javascript"
+            src={{ asset('assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <!-- END GLOBAL JS -->
+{% endblock javascriptBlock %}
+{% block documentReady %}
+    {{ parent() }}
+
+    var dataLsSlide = "offsetxin: right; slidedelay: 7000; transition2d: 24,25,27,28;";
+    var dataLsTitle = "fade: true;fadeout: true;durationin: 750;durationout: 750;easingin: easeOutQuint;rotatein: 90;rotateout: -90;scalein: .5;scaleout: .5;showuntil: 4000;";
+    var dataLsDescription = "fade: true;fadeout: true;durationout: 750;easingin: easeOutQuint;delayin: 300;showuntil: 4000;";
+
+    $(".ls-slide").attr('data-ls', 'dataLsSlide');
+    $(".ls-title").attr('data-ls', 'dataLsTitle');
+    $(".ls-mini-text").attr('data-ls', 'dataLsDescription');
+
+
+
+    $(".open_ajax").fancybox({type: 'ajax'});
+    $(".fancybox-image-view").fancybox({
+    maxWidth:850,
+    afterShow: function() {
+    Layout.initImageZoom();
+    Layout.initTouchspin();
+
+
+    }
+
+    });
+    ComponentsPickers.init();
+
+{% endblock %}
+

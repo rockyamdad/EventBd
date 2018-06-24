@@ -1,0 +1,18 @@
+document_list:
+    path:     /document/list
+    defaults: { _controller: EventBundle:Document:index }
+
+document_add:
+    path:     /file-create
+    defaults: { _controller: EventBundle:Document:uploadFile }
+
+document_update:
+    pattern: /file-edit/{id}
+    defaults: { _controller: EventBundle:Document:update }
+    requirements:
+          id: \d+
+document_delete:
+    pattern: /file-delete/{id}
+    defaults: { _controller: EventBundle:Document:delete }
+    requirements:
+          id: \d+

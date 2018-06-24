@@ -1,0 +1,17 @@
+<ul class="scroller" style="height: 150px;">
+{#    <table>
+    {% for index,cartEvent in event  %}
+        <li>
+            <tr>
+                <td> <img src="{{ asset('uploads/'~cartEvent[5]) }}"    alt="{{ cartEvent[5] }}" class="img-responsive photo" height="34" width="37"></td>
+                <td>&nbsp;&nbsp;&nbsp;{{ cartEvent[0] }}</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ cartEvent[1] }}</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ cartEvent[2] }}</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${{ cartEvent[4] * cartEvent[3] }}</td>
+            </tr>
+
+        </li>
+    {% endfor %}
+    </table>#}
+
+</ul>

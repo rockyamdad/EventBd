@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Event Management System</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <meta name="MobileOptimized" content="320">
+    <meta property="og:site_name" content="-CUSTOMER VALUE-">
+    <meta property="og:title" content="-CUSTOMER VALUE-">
+    <meta property="og:description" content="-CUSTOMER VALUE-">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for socio -->
+    <meta property="og:url" content="-CUSTOMER VALUE-">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Fonts START -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css"><!--- fonts for slider on the index page -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"><!--- fonts for slider on the index page -->
+    <!-- Fonts END -->
+    {% block stylesheets %}
+     {% stylesheets filter='cssrewrite'
+
+     'assets/global/plugins/font-awesome/css/font-awesome.min.css'
+     'assets/global/plugins/bootstrap/css/bootstrap.min.css'
+     'assets/global/plugins/fancybox/source/jquery.fancybox.css'
+     'assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.css'
+     'assets/global/plugins/slider-layer-slider/css/layerslider.css'
+     'assets/global/plugins/select2/select2.css'
+     'assets/global/plugins/uniform/css/uniform.default.css'
+     'assets/global/css/components.css'
+     'assets/global/css/plugins.css'
+     'assets/frontend/layout/css/style-responsive.css'
+     'assets/frontend/layout/css/style.css'
+     'assets/frontend/pages/css/style-shop.css'
+     'assets/frontend/pages/css/style-layer-slider.css'
+     'assets/frontend/layout/css/custom.css'
+     'assets/frontend/layout/css/themes/green.css'
+     '@EventBundle/Resources/public/css/sweetalert.css'
+    %}
+
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    {% endblock %}
+</head>
+<body class="ecommerce">
+{{ include('header.html.twig')}}
+<div id="event" style="display: none; width: 700px;">
+
+
+</div>
+
+{% block body %}{% endblock %}
+{% block javascriptBlock %}
+
+{% javascripts
+    'assets/global/plugins/jquery.min.js'
+    'assets/global/plugins/jquery-migrate.min.js'
+    'assets/global/plugins/respond.min.js'
+    'assets/global/plugins/bootstrap/js/bootstrap.min.js'
+    'assets/frontend/layout/scripts/back-to-top.js'
+    'assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js'
+    'assets/global/plugins/fancybox/source/jquery.fancybox.pack.js'
+    'assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.js'
+    'assets/global/plugins/zoom/jquery.zoom.min.js'
+    'assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js'
+    'assets/global/plugins/uniform/jquery.uniform.min.js'
+    'assets/global/plugins/slider-layer-slider/js/greensock.js'
+    'assets/global/plugins/slider-layer-slider/js/layerslider.transitions.js'
+    'assets/global/plugins/slider-layer-slider/js/layerslider.kreaturamedia.jquery.js'
+    'assets/frontend/pages/scripts/layerslider-init.js'
+    'assets/global/plugins/bootstrap-daterangepicker/moment.min.js'
+    'assets/global/plugins/jquery-validation/js/jquery.validate.min.js'
+    'assets/global/plugins/jquery-validation/js/additional-methods.min.js'
+    'assets/frontend/layout/scripts/layout.js'
+    'assets/global/scripts/metronic.js'
+    'bundles/fosjsrouting/js/router.js'
+    'js/fos_js_routes.js'
+    '@UserBundle/Resources/public/js/users.js'
+    '@EventBundle/Resources/public/js/sweetalert.min.js'
+%}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        {% block documentReady %}
+        Metronic.init();
+        Layout.init();
+        Layout.initOWL();
+        LayersliderInit.initLayerSlider();
+      /*  Layout.initImageZoom();*/
+        Layout.initTouchspin();
+        Layout.initTwitter();
+
+     /*   $("#eventLogin").fancybox({
+            'afterShow': function () {
+                console.log('ok');
+                $('.fancybox-inner').css({'overflow' : 'hidden'});
+            }
+        });*/
+
+        {% endblock %}
+
+
+        {#{% if app.session.flashbag.has('registered') and app.session.flashbag.get('registered') %}
+            $("#event").trigger('click');
+        {% endif %}#}
+    });
+</script>
+{{ include('footer.html.twig')}}
+</body>
+
+</html>

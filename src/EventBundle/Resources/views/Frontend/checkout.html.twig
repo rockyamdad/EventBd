@@ -1,0 +1,141 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <div class="main">
+        <div class="container">
+            <div class="row margin-bottom-40">
+                <div class="col-md-12 col-sm-12col-md-12 col-sm-12">
+                    <h1>Confirm Your Orders</h1>
+
+                    <div class="message">
+                        <div class="goods-page">
+                            <div class="goods-data clearfix">
+
+                                <div class="table-wrapper-responsive">
+                                    <table summary="Shopping cart" class="cart">
+                                        <tr>
+                                            <th class="goods-page-image">Event</th>
+                                            <th class="goods-page-description">Name</th>
+                                            <th class="goods-page-description">Date</th>
+                                            <th class="goods-page-ref-no">Time</th>
+                                            <th class="goods-page-ref-no">Ticket</th>
+                                            <th class="goods-page-quantity">Quantity</th>
+                                            <th class="goods-page-price">Unit price</th>
+                                            <th class="goods-page-total" colspan="2">Total</th>
+                                        </tr>
+                                        {% if((event|length) > 0) %}
+                                            {% set grandTotal = 0 %}
+                                            {% for index,cartEvent in event %}
+
+                                                <tr>
+                                                    <td class="goods-page-image">
+                                                        <img src="{{ asset('uploads/'~cartEvent[5]) }}"
+                                                             alt="{{ cartEvent[5] }}" class="img-responsive photo">
+                                                    </td>
+                                                    <td class="goods-page-description">
+                                                        {{ cartEvent[6] }}
+                                                    </td>
+                                                    <td class="goods-page-description">
+                                                        {{ cartEvent[0] }}
+                                                    </td>
+                                                    <td class="goods-page-ref-no">
+                                                        {{ cartEvent[1] }}
+                                                    </td>
+                                                    <td class="goods-page-ref-no">
+                                                        {{ cartEvent[2] }}
+                                                    </td>
+                                                    <td class="goods-page-quantity">
+                                                        {{ cartEvent[4] }}
+                                                    </td>
+                                                    <td class="goods-page-price">
+                                                        <strong><span>$</span>{{ cartEvent[3] }}</strong>
+                                                    </td>
+                                                    <td class="goods-page-total">
+                                                        {% set total = cartEvent[4] * cartEvent[3] %}
+                                                        <strong><span>$</span></strong><strong
+                                                                class="totalPrice">{{ total }}</strong>
+                                                    </td>
+                                                    <td class="del-goods-col">
+                                                        <a data-ref="{{ index }}" style="background-color:#ff0000"
+                                                           class="del-goods delete" href="#">&nbsp;</a>
+                                                    </td>
+                                                </tr>
+                                                {% set grandTotal = grandTotal + (cartEvent[4] * cartEvent[3]) %}
+                                            {% endfor %}
+                                        {% else %}
+
+                                            <tr>
+                                                <td colspan="8" class="red-message">There is No Products In Cart</td>
+                                            </tr>
+
+                                        {% endif %}
+                                    </table>
+                                </div>
+                                <div class="shopping-total">
+                                    <ul>
+                                        {% if((event|length) > 0) %}
+                                            <li>
+                                                <em>Shipping cost</em>
+                                                <strong class="price"><span>$</span>0.00</strong>
+                                            </li>
+                                            <li class="shopping-total-price">
+                                                <em>Total</em>
+                                                <strong><span>$</span> <b
+                                                            class="grandPrice">{{ grandTotal }}</b></strong>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="panel-body row">
+                                <div class="col-md-12">
+                                    <p>Please select the preferred payment method to use on this order.</p>
+
+                                    <div class="radio-list">
+                                        <label>
+                                            <input type="radio" name="CashOnDelivery" value="CashOnDelivery"> Cash On
+                                            Delivery
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="delivery-payment-method">Add Comments About Your Order</label>
+                                        <textarea id="delivery-payment-method" rows="8" class="form-control"></textarea>
+                                    </div>
+                                    <div class="checkbox pull-right">
+                                        <label>
+                                            <input type="checkbox"> I have read and agree to the <a
+                                                    title="Terms & Conditions" href="#">Terms & Conditions </a> &nbsp;&nbsp;&nbsp;
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if((event|length) > 0) %}
+                            <div class="clearfix"></div>
+                            <a class="btn btn-primary pull-right" href="{{ path('event_confirm_order') }}"
+                               id="button-confirm">Confirm Order</a>
+                            <button type="button" class="btn btn-default pull-right margin-right-20">Cancel</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascriptBlock %}
+
+    {{ parent() }}
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% javascripts
+    '@EventBundle/Resources/public/js/events.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock javascriptBlock %}
+
+
+
+

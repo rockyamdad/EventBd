@@ -1,0 +1,23 @@
+event_group_list:
+    path:     /event-group-list
+    defaults: { _controller: EventBundle:EventGroup:index }
+
+event_group_create:
+    path:     /group-create
+    defaults: { _controller: EventBundle:EventGroup:create }
+
+event_group_post_results:
+    path:     /group-results
+    defaults: { _controller: EventBundle:EventGroup:indexResults }
+
+event_group_edit:
+    path:     /group-edit/{id}
+    defaults: { _controller: EventBundle:EventGroup:edit }
+    options:
+            expose: true
+
+event_group_delete:
+    path:     /group-delete/{id}
+    defaults: { _controller: EventBundle:EventGroup:delete }
+    options:
+            expose: true

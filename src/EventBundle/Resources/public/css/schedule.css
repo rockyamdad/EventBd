@@ -1,0 +1,136 @@
+.report {
+    width: 100%;
+    text-align: left;
+    background: #fff;
+    border-collapse: separate;
+    *border-collapse: collapse
+}
+
+.report td, .report th {
+    padding: 10px;
+    border-right: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    text-align: left
+}
+
+.report td:first-child, .report th:first-child {
+    border-left: 1px solid #dedede
+}
+
+.report caption {
+    border: 1px solid #dedede;
+    padding: 10px;
+    background-color: #f4f4f4;
+    color: #404040;
+    font-weight: 700;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px
+}
+
+.report thead:first-child tr:first-child td, .report thead:first-child tr:first-child th, .report tbody:first-child tr:first-child td, .report tbody:first-child tr:first-child th, .report tfoot:first-child + tbody tr:first-child td, .report tfoot:first-child + tbody tr:first-child th {
+    border-top: 1px solid #dedede
+}
+
+.report thead:first-child tr:first-child td:first-child, .report thead:first-child tr:first-child th:first-child, .report tbody:first-child tr:first-child td:first-child, .report tbody:first-child tr:first-child th:first-child, .report tfoot:first-child + tbody tr:first-child td:first-child, .report tfoot:first-child + tbody tr:first-child th:first-child {
+    border-top-left-radius: 5px
+}
+
+.report thead:first-child tr:first-child td:last-child, .report thead:first-child tr:first-child th:last-child, .report tbody:first-child tr:first-child td:last-child, .report tbody:first-child tr:first-child th:last-child, .report tfoot:first-child + tbody tr:first-child td:last-child, .report tfoot:first-child + tbody tr:first-child th:last-child {
+    border-top-right-radius: 5px
+}
+
+.report tfoot tr:last-child td:first-child, .report tbody:last-child tr:last-child td:first-child {
+    border-bottom-left-radius: 5px
+}
+
+.report tfoot tr:last-child td:last-child, .report tbody:last-child tr:last-child td:last-child {
+    border-bottom-right-radius: 5px
+}
+
+.report tfoot ~ tbody:last-child tr:last-child td:first-child {
+    border-bottom-left-radius: 0
+}
+
+.report tfoot ~ tbody:last-child tr:last-child td:last-child {
+    border-bottom-right-radius: 0
+}
+
+.report--horizontal-grid td, .report--horizontal-grid th {
+    border: 0;
+    border-bottom: 1px solid #dedede
+}
+
+.report--horizontal-grid td:last-child, .report--horizontal-grid th:last-child {
+    border-right: 1px solid #dedede
+}
+
+.ie7 .report--horizontal-grid, .ie8 .report--horizontal-grid {
+    border-right: 1px solid #dedede
+}
+
+.report--compact td {
+    padding-top: 5px;
+    padding-bottom: 5px
+}
+
+.report--compact tbody > tr:first-child > td {
+    padding-top: 10px
+}
+
+.report--compact tfoot > tr:last-child > td {
+    padding-bottom: 10px
+}
+
+.series-cards {
+    margin-bottom: 10px
+}
+
+
+.series-cell-dates {
+    text-align: center !important
+}
+.text-body-large {
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 400
+}
+.text-body--significant, .text-significant {
+    font-weight: 700;
+    color:#666;
+}
+.text-body-small, .text-small {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400
+}
+.text-body--understated, .text-body--faint, .text-understated {
+    font-weight: 400
+}
+
+.text-body--faint {
+    color: #999
+}
+
+.series-card-tools, .series-row-tools {
+    margin-right: 8px;
+    text-align: right
+}
+
+.series-card-tools > a, .series-card-tools > i, .series-row-tools > a, .series-row-tools > i {
+    margin-left: 14px
+}
+
+.series-card-tools > a > i, .series-card-tools > i, .series-row-tools > a > i, .series-row-tools > i {
+    font-size: 20px
+}
+
+th.report__cell--selected {
+    border-bottom: 3px solid #b8b8b8!important;
+}
+
+tr.series-row-head:hover {
+    background: none repeat scroll 0 0 #fff;
+}
+tr.series-row-head {
+    background: none repeat scroll 0 0 #fafafa;
+}

@@ -1,0 +1,49 @@
+events_homepage:
+    path:     /
+    defaults: { _controller: FrontendBundle:Frontend:index }
+
+frontend_product:
+    path:     /product
+    defaults: { _controller: FrontendBundle:Frontend:product }
+
+frontend_details:
+    path:     /details
+    defaults: { _controller: FrontendBundle:Frontend:details }
+
+events_checkout:
+    path:     /checkout
+    defaults: { _controller: FrontendBundle:Frontend:checkout }
+
+events_contact:
+    path:     /contact
+    defaults: { _controller: FrontendBundle:Frontend:contact }
+
+frontend_search:
+    path:     /search
+    defaults: { _controller: FrontendBundle:Frontend:search }
+
+events_view_cart:
+    path:     /viewCart
+    defaults: { _controller: FrontendBundle:Frontend:viewCart }
+
+events_terms_condition:
+    path:     /terms-condition
+    defaults: { _controller: FrontendBundle:Frontend:termsCondition }
+
+frontend_event:
+    path:     /event
+    defaults: { _controller: FrontendBundle:Frontend:event }
+
+events_type:
+    path:     /events
+    defaults: { _controller: FrontendBundle:Frontend:events }
+
+event_search:
+    path:     /event-search
+    defaults: { _controller: FrontendBundle:Frontend:searchEvent }
+
+
+
+
+
+

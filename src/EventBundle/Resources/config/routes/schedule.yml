@@ -1,0 +1,35 @@
+event_schedule_create:
+    path:     /events-schedule-create
+    defaults: { _controller: EventBundle:Schedule:create }
+    options:
+            expose: true
+
+event_schedule_multiple_create:
+    path:     /events-schedule-multiple-create
+    defaults: { _controller: EventBundle:Schedule:createMultipleSchedule }
+    options:
+            expose: true
+
+event_multiple_schedule_delete:
+    path:     /events-multiple-schedule-delete/{id}
+    defaults: { _controller: EventBundle:Schedule:delete }
+    options:
+            expose: true
+    requirements:
+            id: \d+
+
+event_schedule_multiple_detail:
+    path:     /events-multiple-schedule-detail/{id}
+    defaults: { _controller: EventBundle:Schedule:details }
+    options:
+            expose: true
+    requirements:
+            id: \d+
+
+event_detail_schedule_delete:
+    path:     /events-detail-schedule-delete/{id}
+    defaults: { _controller: EventBundle:Schedule:deleteDetailSchedule }
+    options:
+            expose: true
+    requirements:
+            id: \d+

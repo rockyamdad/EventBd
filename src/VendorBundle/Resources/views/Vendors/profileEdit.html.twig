@@ -1,0 +1,133 @@
+{% extends '::base.html.twig' %}
+{% form_theme form ':Form:eventbd_horizontal_layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    {% stylesheets filter='cssrewrite'
+    'assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <!-- END PAGE LEVEL STYLES -->
+
+{% endblock %}
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('message') %}
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="false"></button>
+            <strong> {{ flashMessage }}</strong>
+        </div>
+    {% endfor %}
+    <div class="main">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="{{ path('events_homepage') }}">Home</a></li>
+                <li class="active"><a href="{{ path('fos_user_profile_show') }}">My Account Page</a></li>
+            </ul>
+
+            <div class="row margin-bottom-40">
+
+                <div class="sidebar col-md-3 col-sm-3">
+                    <ul class="list-group margin-bottom-25 sidebar-menu">
+                        <li class="list-group-item clearfix"><a href="{{ path('user_profile') }}"><i class="fa fa-angle-right"></i> Edit Account Information</a></li>
+                        <li class="list-group-item clearfix"><a href="#"><i class="fa fa-angle-right"></i> Restore Password</a></li>
+                        <li class="list-group-item clearfix"><a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-angle-right"></i> My account</a></li>
+                    </ul>
+                </div>
+                <div class="profile-content">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="portlet light">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption caption-md">
+                                        <i class="icon-globe theme-font hide"></i>
+                                        <span class="caption-subject font-blue-madison bold uppercase">Profile Edit</span>
+                                    </div>
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#tab_1_1" data-toggle="tab">Personal Info</a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab_1_3" data-toggle="tab">Change Password</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="tab-content">
+                                        <!-- PERSONAL INFO TAB -->
+                                        <div class="tab-pane active" id="tab_1_1">
+                                            {{ form_start(form,{'attr':{'class':'form-horizontal'}}) }}
+                                            {{ form_row(form.user.firstname) }}
+                                            {{ form_row(form.user.lastname) }}
+                                            {{ form_row(form.user.email) }}
+                                            {{ form_row(form.companyName) }}
+                                            {{ form_row(form.address) }}
+                                            {{ form_row(form.phone) }}
+                                            {{ form_row(form.description) }}
+                                            {{ form_row(form.file) }}
+                                            <div class="form-actions top">
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-9">
+                                                        {{ form_widget(form.user.save,{'attr':{'class':'btn green'}}) }}
+                                                        <a href="{{ path('events_homepage') }}"> {{ form_widget(form.user.cancel,{'attr':{'class':'btn default'}}) }}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {{ form_end(form) }}
+                                        </div>
+
+                                        <div class="tab-pane" id="tab_1_3">
+                                            <form action="#">
+                                                <div class="form-group">
+                                                    <label class="control-label">Current Password</label>
+                                                    <input type="password" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">New Password</label>
+                                                    <input type="password" class="form-control"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Re-type New Password</label>
+                                                    <input type="password" class="form-control"/>
+                                                </div>
+                                                <div class="margin-top-10">
+                                                    <a href="#" class="btn green-haze">
+                                                        Change Password </a>
+                                                    <a href="#" class="btn default">
+                                                        Cancel </a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- END CHANGE PASSWORD TAB -->
+                                        <!-- PRIVACY SETTINGS TAB -->
+
+
+                                    </div>
+                                    <!-- END PRIVACY SETTINGS TAB -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+{% endblock body %}
+{% block javascriptBlock %}
+
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% javascripts
+    'assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    {% endjavascripts %}
+
+    <!-- END GLOBAL JS -->
+{% endblock javascriptBlock %}

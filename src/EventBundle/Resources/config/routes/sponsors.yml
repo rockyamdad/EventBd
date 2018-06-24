@@ -1,0 +1,13 @@
+event_sponsor_create:
+    path:     /events-sponsor-create
+    defaults: { _controller: EventBundle:Sponsor:create }
+    options:
+            expose: true
+
+event_sponsor_delete:
+    path:     /events-sponsor-delete/{id}
+    defaults: { _controller: EventBundle:Sponsor:delete }
+    options:
+            expose: true
+    requirements:
+            id: \d+

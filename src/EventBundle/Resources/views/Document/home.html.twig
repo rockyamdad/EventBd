@@ -1,0 +1,112 @@
+{% extends 'baseBackend.html.twig' %}
+
+{% block body %}
+    <style>
+        .popover-title {
+            color: #000000;
+        }
+        .popover-content{
+            color:#000000;
+        }
+        .modal-details{
+            background: #35aa47;padding: 1px 5px
+        }
+    </style>
+    <!-- BEGIN PAGE HEADER-->
+    <div class="row-fluid">
+        <div class="span12">
+            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+            <h3 class="page-title">
+                Document
+                <small></small>
+            </h3>
+            <ul class="page-breadcrumb breadcrumb" style="height: 36px;">
+                <li>
+                    <i class="fa fa-home"></i>
+                    <a href="{{ path('event_dashboard') }}" style="color: #333 !important;">Dashboard</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <a href="{{ path('document_list') }}" style="color: #333 !important;">Document</a>
+                </li>
+            </ul>
+            <!-- END PAGE TITLE & BREADCRUMB-->
+        </div>
+    </div>
+    <!-- END PAGE HEADER-->
+
+    {#{{ include('::flash-message.html.twig') }}#}
+
+<div class="row-fluid">
+
+    <div class="span12">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box">
+            <a href="{{ path('document_add') }}" style="background: #4b8df8; float: right; height: 40px; color:#ffffff; padding: 9px 14px !important;">
+                File Upload
+            </a>
+            <div class="portlet-body flip-scroll">
+                <table class="table-bordered table-striped table-condensed flip-content">
+                    <thead class="flip-content"  style="background: #4b8df8">
+                    <tr>
+                        <th class="numeric">Sl</th>
+                        <th class="numeric">Title</th>
+                        <th class="numeric">UploadBy</th>
+                        <th class="numeric">Upload Date</th>
+                        <th class="numeric">Description</th>
+                        <th class="numeric">view</th>
+                        <th class="numeric">Action</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                        {% for index,document in documentList %}
+
+                            <tr>
+                                <td class="numeric">{{ index+1 }}.</td>
+                                <td class="numeric">{{ document.title }}</td>
+                                <td class="numeric">{{ document.uploadedBy }}</td>
+                                <td class="numeric">{{ document.uploadedDate | date('d M Y') }}</td>
+                                <td class="numeric">{{ document.description|truncate(15,true) }}</td>
+                                <td class="numeric">
+                                    {% if document.path is not null %}
+
+                                            <img src="{{ url('events_homepage') }}uploads/sliderPhoto/{{ document.path }}" height="100" width="200">
+                                    {% else %}
+                                        &ensp;
+                                    {% endif %}
+                                </td>
+                                <td class="numeric">
+                                    {% if document.path is not null %}
+                                        <a href="{{ path('document_update',{id:document.id}) }}" class="btn btn-sm green">
+                                            Edit <i class="fa fa-edit"></i>
+                                        </a>&nbsp;&nbsp;
+                                        <a href="{{ path('document_delete',{id:document.id}) }}" onclick="return confirm('Are you sure you wnat delete this file?')" class="btn btn-sm red">
+                                            Delete <i class="fa fa-times"></i>
+                                        </a>
+
+                                    {% else %}
+                                        &ensp;
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="navigation" style="text-align: right">
+                        {#{{ knp_pagination_render(documents) }}#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END TABS-->
+
+{% endblock %}
+
+{% block documentready %}
+    {{ parent() }}
+
+{% endblock %}

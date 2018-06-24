@@ -1,0 +1,13 @@
+event_speaker_create:
+    path:     /events-speaker-create
+    defaults: { _controller: EventBundle:Speaker:create }
+    options:
+            expose: true
+
+event_speaker_delete:
+    path:     /events-speaker-delete/{id}
+    defaults: { _controller: EventBundle:Speaker:delete }
+    options:
+            expose: true
+    requirements:
+            id: \d+

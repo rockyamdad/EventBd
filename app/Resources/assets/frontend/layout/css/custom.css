@@ -1,0 +1,356 @@
+/* here you can put your own css to customize and override the theme */
+.event-heading {
+    margin-left:300px !important;
+}
+.details-button {
+    float: left !important;
+    margin-left: 9px !important;
+}
+.advance-button {
+    float: left !important;
+    margin-left: -36px !important;
+}
+.details-heading {
+    float: left !important;
+    text-transform: none !important;
+}
+.event-background {
+    width: 1600px;
+}
+.event-form {
+    width: 700px;margin-left: 350px !important;
+}
+.btn-circle{
+    border-radius:3px !important;
+    text-transform: none !important;
+}
+.editorr .btn{
+    padding:6px 9px  !important;
+
+}
+.editorr {
+    padding-left:0px; !important;
+}
+.image-size img{
+
+    height:125px;
+    width: 237px;
+}
+.new-event-custom {
+    margin-left: 25px;
+}
+.fileinput .file-size{
+    width: 490px !important;
+}
+
+#topic-selector .btn-group.bootstrap-select.input-group-btn.bs-select.form-control{
+    z-index: 0;
+}
+.product-item h3 a{
+    font-size: 83%  !important;
+}
+.product-page-cart{
+    padding-bottom:0px !important;
+    border-bottom : 0px !important;
+}
+.editEventButton{
+    float: right;
+}
+.fancybox-inner{
+    overflow-x: hidden !important;
+}
+.advanced-setting-radio .radio input[type=radio]{
+    margin-left: -10px !important;
+
+}
+.fileinput .file-size-sponsor{
+    width: auto !important;
+}
+.scheduleMultipleCreateBtn{
+    margin-left: 280px !important;
+}
+
+.ecommerce .header-navigation > ul > li > a{
+    padding: 32px 12px 32px!important;
+}
+.logo-header{
+    margin-top: -22px!important;
+}
+
+.ecommerce .header-navigation{
+    font: 16px "Open Sans", sans-serif!important;
+}
+.top-cart-block-custom{
+    margin-top: -5px!important;
+    margin-right: -130px!important;
+
+}
+
+.owl-wrapper{
+    width: 700px!important;
+}
+/*.new-events-section{
+    margin-left: 495px!important;
+}*/
+.events-pos{
+    width: 161px!important;
+}
+.logos-pos-speaker-sponsor{
+    width: 161px!important;
+    margin-top: -39px;
+}
+.new-event-heading{
+    margin-top: 15px!important;
+    margin-left: 28px!important;
+    color:green;
+}
+.top-cart-info{
+    position: relative!important;
+    margin-left: 159px!important;
+}
+.top-cart-block-custom{
+    width: 387px!important;
+}
+.header .top-cart-block-custom {
+    float: right;
+}
+.header .top-cart-block {
+    margin-top: 0px;
+}
+.pre-header-block{
+    vertical-align: top!important;
+    margin-left: 48px!important;
+    margin-top: 9px;
+}
+/*.ecommerce{
+    background-color: darkslategrey!important;
+}
+.header-custom{
+    background-color: darkslategrey!important;
+}
+.nav-custom
+a:hover{
+    background-color: darkslategrey !important;
+}
+.header
+ul{
+    background-color: darkslategrey!important;
+}
+.pre-header-custom
+a{
+    color: ghostwhite;
+}
+.pre-header-custom
+a:hover{
+    background-color: darkslategrey;
+}
+.cart-custom{
+    background-color: darkslategrey;
+}
+.event-custom{
+    background-color: slategray;
+}
+.product-item:hover{
+   box-shadow:  5px 5px slategray;
+}*/
+/*.event-view-custom{
+    background-color: #c0c0c0;
+}*/
+/*.fancybox-skin{
+    background-color: gray;
+}
+.product-page-options select.input-sm{
+    background-color: lightgray;
+}
+ .color-custom{
+     background-color: darkseagreen;
+ }*/
+
+.searchInput{
+    padding-top: 35px;
+    margin-left: 16px;
+    margin-right: -50px;
+}
+.searchInputSearchPage{
+    padding-top: 15px;
+    width :190px;
+}
+.start_date{
+    margin-left: -14px;
+}
+.end_date{
+    margin-left: 13px;
+}
+.signup-custom{
+    background-color: #c0c0c0;
+}
+.single-event-shape{
+    width: 100%!important;
+    /*  background-color: #c0c0c0;*/
+    margin-left: 4px;
+}
+.product-page-custom {
+    /*
+        background-color: #c0c0c0;
+    */
+    padding: 22px;
+    position: relative;
+    margin-right: 10px;
+}
+.sticker-sale{
+    background: none!important;
+}
+/*.product-page-content .tab-content {
+    background-color: #c0c0c0;
+}
+.table-custom {
+    background-color: #c0c0c0!important;
+}*/
+.famous-event-custom{
+    float: left;
+    margin-left: 28px;
+}
+.range-position-custom{
+    margin-left: -15px;
+}
+/*
+.calender-box-custom{
+    margin-left: 14px!important;
+    margin-top: -43px!important;
+}
+*/
+
+#calendar {
+    width: 510px;
+    margin: 0 auto;
+    font-size: 10px;
+}
+.fc-header-title h2 {
+    font-size: .9em;
+    white-space: normal !important;
+}
+.fc-view-month .fc-event, .fc-view-agendaWeek .fc-event {
+    font-size: 0;
+    overflow: hidden;
+    height: 1px;
+}
+.fc-view-agendaWeek .fc-event-vert {
+    font-size: 0;
+    overflow: hidden;
+    width: 2px !important;
+}
+.fc-agenda-axis {
+    width: 20px !important;
+    font-size: .5em;
+}
+
+.fc-button-content {
+    padding: 0;
+}
+.price-ticket-buy{
+    width: 66px!important;
+    height: 29px!important;
+}
+.product-quantity input.form-control {
+    border: none;
+    background: #edeff1 !important;
+    font: 300 17px 'Open Sans', sans-serif;
+    color: #647484;
+    height: 30px;
+    width: 50px;
+    text-align: center;
+    padding: 5px;
+}
+.add-ticket-buy{
+    height: 29px;
+    width: 50px;
+    font-size: 10px;
+    margin-left: 20px;
+}
+.image-shape-custom{
+    width: 558px!important;
+}
+.disableds
+{
+    background-color: green;
+    cursor: wait !important;
+}
+.portlet.calendar .fc-button{
+    height: 41px;
+    top: -51px;
+}
+.fc-toolbar .fc-left
+{
+    margin-top:-42px;
+    color:white;
+}
+.single-page-details-size{
+    font-size: 16px;
+}
+p{
+    font-size: 15px;
+}
+.red-message{
+    color: #ff0000;
+}
+.customEventElement{
+    width:24px;
+    height :25px;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.date-custom-size
+{
+    width:141px;
+}
+.ticket-dropdown-size{
+    float:right;
+    width: 120px;
+}
+.map-design{
+    margin-left:-15px;
+    width: 1113px;
+    height: 580px;
+    border: solid 1px grey
+}
+.position-search{
+    margin-left: -18px;
+}
+.product-page-content .tab-content{
+    padding:65px 15px;
+}
+
+
+#map-container {
+    padding: 6px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ccc #ccc #999 #ccc;
+    -webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+    -moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+    box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
+    width: 600px;
+}
+
+#map {
+    width: 600px;
+    height: 400px;
+}
+.validation-style{
+    color:red ;
+    margin-left: 253px;
+}
+.datepicker{
+    cursor:default;
+}
+.continue-button-position{
+    margin-left: 330px;
+}
+.scheduleMultipleCreateBtn{
+    margin-left: 374px !important;
+}
+
+.has-error .help-block, .has-error .help-inline, .has-error .control-label, .has-error .radio, .has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline{
+    color:red !important;
+}

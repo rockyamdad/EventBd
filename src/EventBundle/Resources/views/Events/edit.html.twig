@@ -1,0 +1,242 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    {% stylesheets filter='cssrewrite'
+
+    'assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css'
+    'assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css'
+    'assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'
+    'assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css'
+    'assets/admin/layout2/css/layout.css'
+    'assets/admin/layout2/css/themes/grey.css'
+    'assets/admin/layout2/css/custom.css'
+    'assets/global/plugins/bootstrap-select/bootstrap-select.min.css'
+    '@EventBundle/Resources/public/css/sumoselect.css'
+    '@EventBundle/Resources/public/css/schedule.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    <!-- END PAGE LEVEL STYLES -->
+
+{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <div class="container">
+            <div class="row margin-bottom-40">
+                <div class="sidebar col-md-3 col-sm-5">
+
+                    <ul class="list-group margin-bottom-25 sidebar-menu">
+
+                        <li></li>
+
+                    </ul>
+
+
+                </div>
+                <div class="col-md-9 col-sm-5">
+                    <!-- BEGIN PAGE CONTENT-->
+
+
+                    <div class="portlet box blue" id="form_wizard_1">
+
+                        <div class="portlet-body form">
+
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <ul class="nav nav-pills nav-justified steps" id="eventWizard">
+                                        <li>
+                                            <a href="#generalInformation" data-toggle="tab" class="step">
+													<span class="number">
+													1 </span>
+													<span class="desc">
+													<i class="fa fa-check"></i> General Information </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#location" data-toggle="tab" class="step">
+													<span class="number">
+													2 </span>
+													<span class="desc">
+													<i class="fa fa-check"></i> Location Section </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#schedule" data-toggle="tab" class="step active">
+													<span class="number">
+													3 </span>
+													<span class="desc">
+													<i class="fa fa-check"></i> Schedule Section </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#ticket" data-toggle="tab" class="step">
+													<span class="number">
+													4 </span>
+													<span class="desc">
+													<i class="fa fa-check"></i> Ticket Section </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#settings" data-toggle="tab" class="step">
+													<span class="number">
+													5 </span>
+													<span class="desc">
+													<i class="fa fa-check"></i> Setting Section </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div id="bar" class="progress progress-striped" role="progressbar">
+                                        <div class="progress-bar progress-bar-success">
+                                        </div>
+                                    </div>
+                                    <div class="tab-content" id="eventWizard">
+                                        <div class="alert alert-danger display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            You have some form errors. Please check below.
+                                        </div>
+                                        <div class="alert alert-success display-hide">
+                                            <button class="close" data-close="alert"></button>
+                                            Your form validation is successful!
+                                        </div>
+
+
+
+                                        <div class="tab-pane active" id="generalInformation">
+                                            {{ include('EventBundle:Events:generalInformation_add.html.twig') }}
+                                        </div>
+
+                                        <div class="tab-pane" id="location">
+                                            {{ include('EventBundle:Events:location_add.html.twig') }}
+                                        </div>
+
+                                        {#<div class="tab-pane" id="schedule">
+                                            {{ include('EventBundle:Events:schedule_add.html.twig') }}
+                                        </div>#}
+
+                                        <div class="tab-pane" id="ticket">
+                                            {{ include('EventBundle:Events:ticket_add.html.twig') }}
+                                        </div>
+
+                                        <div class="tab-pane" id="settings">
+
+                                            <br>
+                                            <div class="form-group advancedSetting">
+                                                <div class="checkbox-list">
+                                                    <label class="checkbox-inline">Sponsor</label>
+                                                    {{ form_widget(formSetting.hasSponsor) }}
+                                                    <label class="checkbox-inline">Speaker</label>
+                                                    {{ form_widget(formSetting.hasSpeaker) }}
+                                                    <label class="checkbox-inline">News</label>
+                                                    {{ form_widget(formSetting.hasNews) }}
+                                                </div>
+                                            </div>
+                                            {{ include('EventBundle:Events:sponsor_add.html.twig') }}
+                                            <br>
+                                            {{ include('EventBundle:Events:speaker_add.html.twig') }}
+                                            {{ include('EventBundle:Events:newsSection_add.html.twig') }}
+
+                                            <div class="form-actions exitForYes">
+                                                <div class="row">
+                                                    <div class="col-md-offset-3 col-md-9">
+                                                        <input type="button" class="btn btn blue backButtonTicket" value="Back">
+                                                        <a href="{{ path('events_by_user') }}" class="btn blue"><i
+                                                                    class="m-icon-swapright m-icon-white"></i>
+                                                            Save & Exit
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block javascriptBlock %}
+
+    {{ parent() }}
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% javascripts
+
+    'assets/global/plugins/jquery-validation/js/jquery.validate.min.js'
+    'assets/global/plugins/jquery-validation/js/additional-methods.min.js'
+    'assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js'
+    'assets/global/plugins/select2/select2.min.js'
+    'assets/admin/pages/scripts/form-wizard.js'
+    'assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js'
+    'assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js'
+    'assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js'
+    'assets/admin/pages/scripts/components-pickers.js'
+    'assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js'
+    'assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js'
+    'assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js'
+    '@EventBundle/Resources/public/js/events.js'
+    '@EventBundle/Resources/public/js/location.js'
+    '@EventBundle/Resources/public/js/tickets.js'
+    '@EventBundle/Resources/public/js/speakers.js'
+    '@EventBundle/Resources/public/js/schedule.js'
+    '@EventBundle/Resources/public/js/sponsors.js'
+    '@EventBundle/Resources/public/js/news.js'
+    '@EventBundle/Resources/public/js/jquery.sumoselect.min.js'
+    '@EventBundle/Resources/public/js/rajax.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    {% endjavascripts %}
+
+    <script type="text/javascript"
+            src={{ asset('assets/global/plugins/bootstrap-select/bootstrap-select.min.js') }}></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <!-- END GLOBAL JS -->
+{% endblock javascriptBlock %}
+
+
+ {% block documentReady %}
+     {{ parent() }}
+     {#<script>#}
+
+     ComponentsPickers.init();
+     FormWizard.init();
+     $('.daysOfWeekselect2').SumoSelect();
+     $('.daysOfMonthselect2').SumoSelect();
+     $('select').select2();
+
+     $('.locationCreateBtn').click( function (){
+     locationCreate(Routing.generate('location_create'));
+     });
+
+
+
+     $('textarea.wysihtml5').wysihtml5({ "stylesheets": ["/assets/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css"] });
+
+     validationInit();
+     $('.speakerSection').hide();
+     $('.multipleSchedule').hide();
+     $('.daysOfWeekSection').hide();
+     $('.daysOfMonthSection').hide();
+     $('.sponsorSection').hide();
+     $('.newsSection').hide();
+
+ {% endblock %}

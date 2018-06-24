@@ -1,0 +1,13 @@
+add_ticket_create:
+    path:     /event-add-ticket/create
+    defaults: { _controller: EventBundle:Ticket:create }
+    options:
+            expose: true
+
+event_ticket_delete:
+    path:     /events-ticket-delete/{id}
+    defaults: { _controller: EventBundle:Ticket:delete }
+    options:
+            expose: true
+    requirements:
+            id: \d+

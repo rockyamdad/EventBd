@@ -1,0 +1,86 @@
+
+{{ form_start(locationForm,{'attr':{'class':'form-horizontal','id':'event_location_add_form'}}) }}
+{#<input type="hidden" id="locationId" name="locationId">#}
+<div class="portlet-body form" id="testt">
+    <!-- BEGIN FORM-->
+    <div class="form-body">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            {{ form_widget(locationForm.venueName,{'attr':{'class':'form-control','placeholder':'Specify where its held'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            {{ form_widget(locationForm.address,{'attr':{'class':'form-control','id':'pac-input','placeholder':'Address'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            {{ form_widget(locationForm.city,{'attr':{'class':'form-control','placeholder':'City'}}) }}
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_widget(locationForm.state,{'attr':{'class':'form-control','placeholder':'State'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group ">
+                            {{ form_widget(locationForm.postalCode,{'attr':{'class':'form-control','placeholder':'Zip/Postal Code'}}) }}
+                        </div>
+                    </div>
+                    <!--/span-->
+                </div>
+                <!--/row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form_widget(locationForm.country,{'attr':{'class':'select2me form-control','placeholder':'Select Country'}}) }}
+                        </div>
+                    </div>
+                    <!--/span-->
+                    {{ form_widget(locationForm.latitude,{'attr':{'class':'form-control'}}) }}
+                    {{ form_widget(locationForm.longitude,{'attr':{'class':'form-control'}}) }}
+                    {{ form_widget(locationForm.eventId,{'attr':{'class':'form-control'}}) }}
+          {#          {% if locationForm.id %}
+                        {{ dump(locationForm.id) }}
+                        {{ form_widget(locationForm.locationId,{'value':locationForm.id}) }}
+                    {% else %}
+                        {{ form_widget(locationForm.locationId) }}
+                    {% endif %}#}
+                </div>
+            </div>&nbsp;
+            <div class="col-md-6" id="map-canvas" style=" margin-left:5px;width: 400px;height: 280px;border: solid 1px grey"></div>
+            {#<div id="map-response"></div>#}
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-9">
+                <input type="button" class="btn btn blue backButtonEvent" value="Back">
+                {#<a href="" class="btn backButtonEvent" rel="">
+                    <i class="m-icon-swapleft"></i>Back</a>#}
+                {{ form_widget(locationForm.save,{'attr':{'class':'btn blue locationCreateBtn'}}) }}
+
+            </div>
+        </div>
+    </div>
+
+    <!-- END FORM-->
+</div>
+{{ form_end(locationForm) }}

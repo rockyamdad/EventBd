@@ -1,0 +1,13 @@
+location_create:
+    path:     /event-location/create
+    defaults: { _controller: EventBundle:Location:create }
+    options:
+            expose: true
+
+location_update:
+    path:     /event-location/update/{id}
+    defaults: { _controller: EventBundle:Location:update, id:id }
+    options:
+            expose: true
+    requirements:
+            id: \d+

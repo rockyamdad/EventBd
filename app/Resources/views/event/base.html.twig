@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8" />
+    <title>Event Details</title>
+    <!-- Metas -->
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Stylesheets -->
+    <!-- Fonts START -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css"><!--- fonts for slider on the index page -->
+    <!-- Fonts END -->
+    {% block styleSheets %}
+    {% stylesheets filter='cssrewrite'
+    'assets/global/plugins/font-awesome/css/font-awesome.min.css'
+    'assets/global/plugins/bootstrap/css/bootstrap.min.css'
+    'assets/global/css/components.css'
+
+    'assets/frontend/onepage/css/style.css'
+    'assets/frontend/onepage/css/style-responsive.css'
+    'assets/frontend/onepage/css/themes/red.css'
+    'assets/frontend/onepage/css/custom.css'
+
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    {% endblock styleSheets %}
+    <link rel="shortcut icon" href="../assets/event/images/favicon.ico">
+</head>
+
+<body class="ecommerce">
+{{ include('header.html.twig')}}
+{% block body %}{% endblock %}
+{% javascripts
+'assets/event/js/jquery-1.10.2.min.js'
+'assets/event/js/bootstrap.min.js'
+'assets/global/plugins/fancybox/source/jquery.fancybox.pack.js'
+'assets/global/plugins/jquery.easing.js'
+'assets/global/plugins/jquery.parallax.js'
+'assets/global/plugins/jquery.scrollTo.min.js'
+'assets/frontend/onepage/scripts/layout.js'
+'assets/frontend/onepage/scripts/jquery.nav.js'
+
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script>
+    $(document).ready(function() {
+        Layout.init();
+    });
+</script>
+
+{{ include('footer.html.twig')}}
+
+
+</body>
+
+</html>

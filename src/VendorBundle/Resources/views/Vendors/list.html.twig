@@ -1,0 +1,55 @@
+{% extends '::baseBackend.html.twig' %}
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('message') %}
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="false"></button>
+            <strong> {{ flashMessage }}</strong>
+        </div>
+    {% endfor %}
+    <h3 class="page-title">
+        Vendors
+    </h3>
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <i class="fa fa-home"></i>
+                <a href="{{ path('event_dashboard') }}">Home</a>
+                <i class="fa fa-angle-right"></i>
+            </li>
+            <li>
+                <a href="{{ path('vendor_list') }}">Vendor List</a>
+            </li>
+        </ul>
+
+    </div>
+    <div class="portlet box purple">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>Vendors List
+            </div>
+            <div class="actions">
+                <a href="{{ path('vendor_add') }}" class="btn btn-default btn-sm">
+                    <i class="fa fa-plus"></i> Add Vendor </a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            {{ datatable_render_html(datatable) }}
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block javascriptBlock %}
+
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% javascripts
+    '@UserBundle/Resources/public/js/users.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+
+    {% endjavascripts %}
+
+    {{ datatable_render_js(datatable) }}
+    <!-- END GLOBAL JS -->
+{% endblock javascriptBlock %}
